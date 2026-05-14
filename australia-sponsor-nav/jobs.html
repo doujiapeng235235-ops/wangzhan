@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>签证担保岗位数据库</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="返回首页">
+        <span class="brand-mark"><i data-lucide="database"></i></span>
+        <span>
+          <strong>岗位数据库</strong>
+          <small>VisaSponsor.jobs 抓取数据</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="数据库导航">
+        <a href="index.html"><i data-lucide="home"></i>首页</a>
+        <a href="occupations.html"><i data-lucide="book-open-check"></i>职业库</a>
+        <a href="csol.html"><i data-lucide="list-checks"></i>CSOL职业名单</a>
+        <a href="index.html#visa"><i data-lucide="route"></i>签证路径</a>
+        <a href="index.html#self-test"><i data-lucide="sparkles"></i>自测工具</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="database-hero">
+        <div>
+          <p class="eyebrow">二级页面 · 岗位机会搜索</p>
+          <h1>签证担保岗位数据库</h1>
+          <p class="lede">
+            已从 visasponsor.jobs/api/jobs 抓取岗位列表，支持按关键词、国家、行业和签证标签筛选，并可跳转原始岗位详情页。
+          </p>
+          <div class="page-actions">
+            <a href="occupations.html"><i data-lucide="briefcase-business"></i>先看职业库</a>
+            <a href="csol.html"><i data-lucide="list-checks"></i>核对 CSOL</a>
+          </div>
+        </div>
+        <div class="database-stats" id="databaseStats"></div>
+      </section>
+
+      <section class="csol-panel" id="csol">
+        <div>
+          <p class="eyebrow">职业核对</p>
+          <h2>先核对职业，再筛选岗位机会</h2>
+          <p>
+            建议先确认职业名称、ANZSCO 方向和英文岗位关键词，再回到岗位数据库按行业、签证标签和公司名称筛选机会。
+          </p>
+        </div>
+        <div class="csol-actions">
+          <a href="csol.html">查看CSOL职业名单</a>
+          <a href="occupations.html">打开职业库</a>
+        </div>
+      </section>
+
+      <section class="database-shell">
+        <form class="database-filters" id="jobFilters">
+          <label>
+            关键词
+            <input id="jobKeyword" type="search" placeholder="职位、公司、城市、签证类型" />
+          </label>
+          <label>
+            国家
+            <select id="jobCountry"></select>
+          </label>
+          <label>
+            行业
+            <select id="jobClassification"></select>
+          </label>
+          <label>
+            签证
+            <select id="jobVisa"></select>
+          </label>
+          <button type="button" id="resetJobFilters"><i data-lucide="rotate-ccw"></i>重置筛选</button>
+        </form>
+
+        <div class="database-toolbar">
+          <div>
+            <strong id="jobResultCount">0 个岗位</strong>
+            <span id="jobSourceMeta"></span>
+          </div>
+          <div class="database-tools" aria-label="结果排序和分页设置">
+            <label for="jobSort">排序
+              <select id="jobSort">
+                <option value="newest">最新发布</option>
+                <option value="title">职位 A-Z</option>
+                <option value="employer">公司 A-Z</option>
+                <option value="country">国家 A-Z</option>
+              </select>
+            </label>
+            <label for="jobPageSize">每页
+              <select id="jobPageSize">
+                <option value="20">20</option>
+                <option value="30" selected>30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="job-table-wrap">
+          <table class="job-table">
+            <thead>
+              <tr>
+                <th>岗位</th>
+                <th>公司</th>
+                <th>地点</th>
+                <th>行业</th>
+                <th>签证</th>
+                <th>发布日期</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="jobTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination-bar">
+          <button type="button" id="prevJobPage"><i data-lucide="chevron-left"></i>上一页</button>
+          <span id="jobPageInfo"></span>
+          <button type="button" id="nextJobPage">下一页<i data-lucide="chevron-right"></i></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>数据来源：visasponsor.jobs/api/jobs。</span>
+      <span>抓取数据仅作机会导航和检索，不代表岗位仍开放或一定支持申请。</span>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="data/visa-sponsor-jobs.js"></script>
+    <script src="jobs.js"></script>
+  </body>
+</html>

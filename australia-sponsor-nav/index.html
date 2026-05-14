@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>澳洲雇主担保机会导航平台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark"><i data-lucide="map-pin"></i></span>
+        <span>
+          <strong>雇主机会导航</strong>
+          <small>公益型澳洲雇主担保信息平台</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="jobs.html"><i data-lucide="database"></i>岗位数据库</a>
+        <a href="occupations.html"><i data-lucide="book-open-check"></i>职业库</a>
+        <a href="csol.html"><i data-lucide="list-checks"></i>CSOL职业名单</a>
+        <a href="#self-test"><i data-lucide="sparkles"></i>自测工具</a>
+        <a href="#contact"><i data-lucide="message-circle"></i>联系我们</a>
+        <a class="nav-login" href="#contact">登录</a>
+        <a class="nav-register" href="#contact">注册</a>
+        <label class="language-switcher" for="languageSelect">
+          <span>语言</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="section-inner hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">澳洲找工作 · 雇主担保机会导航</p>
+          <h1>先找到岗位，再规划雇主担保</h1>
+          <p class="lede">
+            面向澳洲求职和雇主担保申请人，聚合签证担保岗位、职业清单、求职网站和路径自测，帮你从职业关键词开始筛选机会。
+          </p>
+          <div class="hero-locations" aria-label="热门城市">
+            <span><i data-lucide="map-pin"></i>悉尼 Sydney</span>
+            <span><i data-lucide="map-pin"></i>墨尔本 Melbourne</span>
+            <span><i data-lucide="map-pin"></i>布里斯班 Brisbane</span>
+            <span><i data-lucide="map-pin"></i>珀斯 Perth</span>
+            <span><i data-lucide="map-pin"></i>阿德莱德 Adelaide</span>
+          </div>
+          <div class="hero-metrics" aria-label="平台数据概览">
+            <span><strong>954</strong>482 / 186 岗位</span>
+            <span><strong>456</strong>CSOL 职业</span>
+            <span><strong>23+</strong>行业分类</span>
+          </div>
+        </div>
+        <aside class="hero-visual" aria-label="精选岗位机会">
+          <div class="hero-visual-card hero-visual-main">
+            <span class="visual-label">精选机会</span>
+            <strong>今日优先查看</strong>
+            <div class="visual-job">
+              <i data-lucide="code-2"></i>
+              <div>
+                <b>Software Engineer</b>
+                <small>Sydney · 482 / 186 机会</small>
+              </div>
+            </div>
+            <div class="visual-job">
+              <i data-lucide="chef-hat"></i>
+              <div>
+                <b>Chef / Cook</b>
+                <small>Regional · DAMA / Labour Agreement</small>
+              </div>
+            </div>
+            <div class="visual-job">
+              <i data-lucide="heart-pulse"></i>
+              <div>
+                <b>Registered Nurse</b>
+                <small>Perth · Aged Care / Health</small>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual-row">
+            <div class="hero-visual-card">
+              <span>热门城市</span>
+              <strong>5</strong>
+              <small>Sydney / Melbourne / Brisbane / Perth / Adelaide</small>
+            </div>
+            <a class="hero-visual-card visual-cta" href="jobs.html">
+              <span>开始搜索</span>
+              <strong>进入岗位库</strong>
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+        </aside>
+        </div>
+      </section>
+
+      <section class="hero-search-section" aria-label="岗位搜索">
+        <div class="section-inner">
+          <form class="search-panel" id="heroSearch">
+            <div class="hero-filter-grid">
+              <label for="searchInput">
+                关键词
+                <input
+                  id="searchInput"
+                  type="search"
+                  placeholder="职位、公司、城市、签证类型"
+                  autocomplete="off"
+                />
+              </label>
+              <label for="heroCountry">
+                国家
+                <select id="heroCountry">
+                  <option value="all">全部国家</option>
+                  <option value="Australia">Australia</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                </select>
+              </label>
+              <label for="heroClassification">
+                行业
+                <select id="heroClassification">
+                  <option value="all">全部行业</option>
+                  <option value="Information Technology">Information Technology</option>
+                  <option value="Health and Care">Health and Care</option>
+                  <option value="Manufacturing and Logistics">Manufacturing and Logistics</option>
+                  <option value="Hospitality and Tourism">Hospitality and Tourism</option>
+                  <option value="Education and Training">Education and Training</option>
+                </select>
+              </label>
+              <label for="heroVisa">
+                签证
+                <select id="heroVisa">
+                  <option value="all">全部签证</option>
+                  <option value="H-1B">H-1B</option>
+                  <option value="E-3">E-3</option>
+                  <option value="482">482</option>
+                  <option value="186">186</option>
+                  <option value="494">494</option>
+                </select>
+              </label>
+              <button type="submit"><i data-lucide="search"></i>搜索岗位</button>
+              <button type="button" id="heroResetFilters" class="ghost-reset"><i data-lucide="rotate-ccw"></i>重置筛选</button>
+            </div>
+            <div class="quick-search" aria-label="热门搜索">
+              <span>热门关键词：</span>
+              <button type="button" data-query="Chef">Chef</button>
+              <button type="button" data-query="Aged Care">Aged Care</button>
+              <button type="button" data-query="Software Engineer">Software Engineer</button>
+              <button type="button" data-query="Accountant">Accountant</button>
+              <a href="occupations.html">职业库</a>
+              <a href="csol.html">CSOL职业名单</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="workspace feature-strip" aria-label="核心入口">
+        <div class="section-inner feature-grid">
+        <a href="jobs.html">
+          <i data-lucide="database"></i>
+          <strong>岗位数据库</strong>
+          <span>按关键词、行业、签证类型筛选岗位</span>
+        </a>
+        <a href="occupations.html">
+          <i data-lucide="book-open-check"></i>
+          <strong>职业库</strong>
+          <span>整理职业入口和澳洲求职网站</span>
+        </a>
+        <a href="csol.html">
+          <i data-lucide="list-checks"></i>
+          <strong>CSOL职业名单</strong>
+          <span>核对职业与 ANZSCO code</span>
+        </a>
+        <a href="#self-test">
+          <i data-lucide="clipboard-check"></i>
+          <strong>路径自测</strong>
+          <span>根据背景生成下一步行动清单</span>
+        </a>
+        </div>
+      </section>
+
+      <section class="workspace city-showcase" aria-label="热门城市机会">
+        <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">城市机会</p>
+            <h2>用城市缩小范围，再进入岗位搜索</h2>
+          </div>
+          <a class="section-link" href="jobs.html">查看全部岗位 <i data-lucide="arrow-right"></i></a>
+        </div>
+        <div class="city-grid">
+          <a class="city-card large" href="jobs.html?q=Sydney">
+            <img src="assets/city-sydney-ai.png" alt="Sydney Harbour" />
+            <span>悉尼 Sydney</span>
+            <strong>IT、会计、市场、工程岗位更集中</strong>
+          </a>
+          <a class="city-card" href="jobs.html?q=Melbourne">
+            <img src="assets/city-melbourne-ai.png" alt="Melbourne city" />
+            <span>墨尔本 Melbourne</span>
+            <strong>专业服务、医疗、教育机会</strong>
+          </a>
+          <a class="city-card" href="jobs.html?q=Brisbane">
+            <img src="assets/city-brisbane-ai.png" alt="Brisbane skyline" />
+            <span>布里斯班 Brisbane</span>
+            <strong>护理、建筑、酒店与区域机会</strong>
+          </a>
+          <a class="city-card" href="jobs.html?q=Perth">
+            <img src="assets/city-perth-ai.png" alt="Western Australia coast" />
+            <span>珀斯 Perth</span>
+            <strong>矿业、工程、医疗与偏远地区机会</strong>
+          </a>
+        </div>
+        </div>
+      </section>
+
+      <section class="workspace action-board" aria-label="行动路径">
+        <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">求职推进</p>
+            <h2>找到岗位之后，按三步判断能不能推进</h2>
+          </div>
+          <a class="section-link" href="#self-test">直接自测 <i data-lucide="arrow-right"></i></a>
+        </div>
+        <div class="action-grid">
+          <article class="action-card primary" id="visa">
+            <i data-lucide="route"></i>
+            <p class="eyebrow">01 · 签证路径</p>
+            <h3>先判断 482 / 186 / Labour Agreement</h3>
+            <p>482 适合已有雇主担保意向，186 偏长期永居规划，Labour Agreement 适合标准路径不完全适配时进一步核对。</p>
+            <a href="jobs.html">查看相关岗位 <i data-lucide="arrow-right"></i></a>
+          </article>
+          <article class="action-card" id="methods">
+            <i data-lucide="file-check-2"></i>
+            <p class="eyebrow">02 · 求职工具</p>
+            <h3>把简历、关键词和面试准备好</h3>
+            <ul>
+              <li>澳洲格式：联系方式、签证状态、可上班时间清晰。</li>
+              <li>职业关键词：匹配岗位标题、技能、证书与行业术语。</li>
+              <li>面试中自然说明经验、到岗时间和 sponsorship 诉求。</li>
+            </ul>
+          </article>
+          <article class="action-card" id="risks">
+            <i data-lucide="shield-alert"></i>
+            <p class="eyebrow">03 · 避坑指南</p>
+            <h3>先识别风险，再推进机会</h3>
+            <ul>
+              <li>警惕以岗位或担保名额为名收取异常费用。</li>
+              <li>核对 ABN、官网、地址、招聘记录与面试流程。</li>
+              <li>经历、证书、英语和合同材料必须真实一致。</li>
+            </ul>
+          </article>
+        </div>
+        </div>
+      </section>
+
+      <section class="workspace self-test-workspace" id="self-test">
+        <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">自测工具</p>
+            <h2>雇主担保路径自测</h2>
+          </div>
+          <span class="data-note">自测结果只做准备方向，正式判断以澳洲官方和专业意见为准</span>
+        </div>
+        <div class="policy-grid">
+          <article>
+            <strong>澳洲482雇主担保工作签证（Subclass 482）</strong>
+            <span>澳洲482签证是目前主流的澳洲雇主担保工作签证，适合希望通过澳洲企业担保赴澳工作的技术人才。部分申请人后续可通过482转186，进一步申请澳洲永久居民身份。</span>
+            <a href="https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/skills-in-demand-visa-subclass-482" target="_blank" rel="noreferrer">查看 482 官方说明</a>
+          </article>
+          <article>
+            <strong>澳洲186雇主担保永居签证（Subclass 186）</strong>
+            <span>澳洲186雇主担保签证属于永久居民（PR）签证，适合希望通过澳洲企业担保，获得长期工作与定居身份的申请人。获批后可在澳洲永久居住、工作，并可携带配偶及子女一同申请。</span>
+            <a href="https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/employer-nomination-scheme-186" target="_blank" rel="noreferrer">查看 186 官方说明</a>
+          </article>
+        </div>
+        <form class="self-test" id="selfTestForm">
+          <h3>签证路径自测</h3>
+          <label>年龄 <input id="ageInput" type="number" min="18" max="60" value="32" /></label>
+          <label>职业 <input id="testOccupation" type="text" value="Chef" /></label>
+          <label>工作年限 <input id="yearsInput" type="number" min="0" max="30" value="4" /></label>
+          <label>英语情况
+            <select id="englishInput">
+              <option value="competent">达到基本要求</option>
+              <option value="limited">需要补强</option>
+              <option value="strong">较强</option>
+            </select>
+          </label>
+          <button type="submit"><i data-lucide="clipboard-check"></i>生成行动清单</button>
+          <output id="testOutput"></output>
+          <div class="ai-assistant">
+            <img class="ai-robot" src="assets/ai-robot.png" alt="" aria-hidden="true" />
+            <div class="ai-head">
+              <div>
+                <p class="eyebrow">AI 助手咨询</p>
+                <h3>问我下一步怎么准备</h3>
+              </div>
+              <span>本地规则助手</span>
+            </div>
+            <div class="ai-messages" id="aiMessages" aria-live="polite">
+              <div class="ai-message assistant">你好，我可以根据你的职业、经验和英语情况，帮你整理找雇主、签证路径和材料准备的下一步。</div>
+            </div>
+            <div class="ai-input-row">
+              <input id="aiQuestion" type="text" placeholder="例如：Chef 适合先找哪些雇主？我英语不够怎么办？" />
+              <button type="button" id="askAiButton"><i data-lucide="send"></i>咨询 AI</button>
+            </div>
+            <div class="ai-prompts">
+              <button type="button" data-ai-prompt="我应该优先准备哪些材料？">材料准备</button>
+              <button type="button" data-ai-prompt="我怎么联系愿意担保的雇主？">联系雇主</button>
+              <button type="button" data-ai-prompt="482 和 186 应该怎么选？">路径选择</button>
+            </div>
+          </div>
+        </form>
+
+        </div>
+      </section>
+
+      <section class="contact-band" id="contact">
+        <div class="section-inner contact-layout">
+        <div>
+          <p class="eyebrow">联系我们</p>
+          <h2>领取更多澳洲雇主担保公司名单</h2>
+          <p>添加微信，获取按职业、城市、行业整理的雇主担保公司名单，并了解简历优化、求职陪跑和材料准备服务。</p>
+        </div>
+        <div class="wechat-card">
+          <strong>添加微信领取名单</strong>
+          <span class="wechat-id">WeChat: AU-Sponsor-List</span>
+          <small>备注：职业 + 城市，例如 Chef Adelaide、RN Perth、IT Sydney。</small>
+        </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>雇主机会导航</strong>
+        <span>公益信息平台原型，不替代移民法律意见。</span>
+      </div>
+      <span>政策、职业清单与薪资门槛需以澳洲官方更新为准。</span>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
