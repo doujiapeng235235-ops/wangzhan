@@ -9,7 +9,7 @@
   <body>
     <header class="topbar">
       <a class="brand" href="#top" aria-label="返回首页">
-        <span class="brand-mark"><i data-lucide="map-pin"></i></span>
+        <span class="brand-mark"><img src="assets/nav-logo-shield-ai-transparent.png" alt="" aria-hidden="true" /></span>
         <span>
           <strong>雇主机会导航</strong>
           <small>公益型澳洲雇主担保信息平台</small>
@@ -43,11 +43,12 @@
             面向澳洲求职和雇主担保申请人，聚合签证担保岗位、职业清单、求职网站和路径自测，帮你从职业关键词开始筛选机会。
           </p>
           <div class="hero-locations" aria-label="热门城市">
-            <span><i data-lucide="map-pin"></i>悉尼 Sydney</span>
-            <span><i data-lucide="map-pin"></i>墨尔本 Melbourne</span>
-            <span><i data-lucide="map-pin"></i>布里斯班 Brisbane</span>
-            <span><i data-lucide="map-pin"></i>珀斯 Perth</span>
-            <span><i data-lucide="map-pin"></i>阿德莱德 Adelaide</span>
+            <a href="jobs.html?q=Sydney"><i data-lucide="map-pin"></i>悉尼 Sydney</a>
+            <a href="jobs.html?q=Melbourne"><i data-lucide="map-pin"></i>墨尔本 Melbourne</a>
+            <a href="jobs.html?q=Brisbane"><i data-lucide="map-pin"></i>布里斯班 Brisbane</a>
+            <a href="jobs.html?q=Perth"><i data-lucide="map-pin"></i>珀斯 Perth</a>
+            <a href="jobs.html?q=Adelaide"><i data-lucide="map-pin"></i>阿德莱德 Adelaide</a>
+            <a href="jobs.html?q=Canberra"><i data-lucide="map-pin"></i>堪培拉 Canberra</a>
           </div>
           <div class="hero-metrics" aria-label="平台数据概览">
             <span><strong>954</strong>482 / 186 岗位</span>
@@ -57,29 +58,43 @@
         </div>
         <aside class="hero-visual" aria-label="精选岗位机会">
           <div class="hero-visual-card hero-visual-main">
-            <span class="visual-label">精选机会</span>
-            <strong>今日优先查看</strong>
-            <div class="visual-job">
+            <span class="visual-label">热门方向</span>
+            <strong>26年申请热门行业</strong>
+            <a class="visual-job" href="jobs.html?q=Software%7CCloud%7CData" aria-label="查看 Software、Cloud、Data 相关岗位">
               <i data-lucide="code-2"></i>
               <div>
-                <b>Software Engineer</b>
-                <small>Sydney · 482 / 186 机会</small>
+                <b>1. IT软件开发</b>
+                <small>Software / Cloud / Data</small>
               </div>
-            </div>
-            <div class="visual-job">
+            </a>
+            <a class="visual-job" href="jobs.html?q=Hospitality%7CRestaurant%7CHotel" aria-label="查看 Hospitality、Restaurant、Hotel 相关岗位">
               <i data-lucide="chef-hat"></i>
               <div>
-                <b>Chef / Cook</b>
-                <small>Regional · DAMA / Labour Agreement</small>
+                <b>2. 酒店餐饮管理</b>
+                <small>Hospitality / Restaurant / Hotel</small>
               </div>
-            </div>
-            <div class="visual-job">
+            </a>
+            <a class="visual-job" href="jobs.html?q=Engineering%7CConstruction%7CCivil" aria-label="查看 Engineering、Construction、Civil 相关岗位">
+              <i data-lucide="hard-hat"></i>
+              <div>
+                <b>3. 工程类</b>
+                <small>Engineering / Construction / Civil</small>
+              </div>
+            </a>
+            <a class="visual-job" href="jobs.html?q=Hospital%7CClinic%7CHealth" aria-label="查看 Hospital、Clinic、Health 相关岗位">
               <i data-lucide="heart-pulse"></i>
               <div>
-                <b>Registered Nurse</b>
-                <small>Perth · Aged Care / Health</small>
+                <b>4. Registered Nurse</b>
+                <small>Hospital / Clinic / Health</small>
               </div>
-            </div>
+            </a>
+            <a class="visual-job" href="jobs.html?q=Residential%20Care%7CSupport%20Work" aria-label="查看 Residential Care、Support Work 相关岗位">
+              <i data-lucide="hand-heart"></i>
+              <div>
+                <b>5. Aged Care</b>
+                <small>Residential Care / Support Work</small>
+              </div>
+            </a>
           </div>
           <div class="hero-visual-row">
             <div class="hero-visual-card">
@@ -115,9 +130,6 @@
                 <select id="heroCountry">
                   <option value="all">全部国家</option>
                   <option value="Australia">Australia</option>
-                  <option value="United States">United States</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="Canada">Canada</option>
                 </select>
               </label>
               <label for="heroClassification">
@@ -131,19 +143,8 @@
                   <option value="Education and Training">Education and Training</option>
                 </select>
               </label>
-              <label for="heroVisa">
-                签证
-                <select id="heroVisa">
-                  <option value="all">全部签证</option>
-                  <option value="H-1B">H-1B</option>
-                  <option value="E-3">E-3</option>
-                  <option value="482">482</option>
-                  <option value="186">186</option>
-                  <option value="494">494</option>
-                </select>
-              </label>
-              <button type="submit"><i data-lucide="search"></i>搜索岗位</button>
               <button type="button" id="heroResetFilters" class="ghost-reset"><i data-lucide="rotate-ccw"></i>重置筛选</button>
+              <button type="submit"><i data-lucide="search"></i>搜索岗位</button>
             </div>
             <div class="quick-search" aria-label="热门搜索">
               <span>热门关键词：</span>
@@ -187,7 +188,7 @@
         <div class="section-inner">
         <div class="section-head">
           <div>
-            <p class="eyebrow">城市机会</p>
+            <p class="eyebrow">·城市机会</p>
             <h2>用城市缩小范围，再进入岗位搜索</h2>
           </div>
           <a class="section-link" href="jobs.html">查看全部岗位 <i data-lucide="arrow-right"></i></a>
@@ -213,6 +214,16 @@
             <span>珀斯 Perth</span>
             <strong>矿业、工程、医疗与偏远地区机会</strong>
           </a>
+          <a class="city-card" href="jobs.html?q=Adelaide">
+            <img src="assets/city-adelaide-ai.png" alt="Adelaide city opportunities" />
+            <span>阿德莱德 Adelaide</span>
+            <strong>医疗、教育、制造与区域担保机会</strong>
+          </a>
+          <a class="city-card" href="jobs.html?q=Canberra">
+            <img src="assets/city-canberra-ai.png" alt="Canberra city opportunities" />
+            <span>堪培拉 Canberra</span>
+            <strong>政府、IT、工程与专业服务机会</strong>
+          </a>
         </div>
         </div>
       </section>
@@ -221,7 +232,7 @@
         <div class="section-inner">
         <div class="section-head">
           <div>
-            <p class="eyebrow">求职推进</p>
+            <p class="eyebrow">·求职推荐</p>
             <h2>找到岗位之后，按三步判断能不能推进</h2>
           </div>
           <a class="section-link" href="#self-test">直接自测 <i data-lucide="arrow-right"></i></a>
@@ -258,11 +269,138 @@
         </div>
       </section>
 
+      <section class="workspace success-cases" aria-label="成功案例">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">·成功案例</p>
+            <h2>获批真实案例</h2>
+            </div>
+          </div>
+          <div class="success-case-carousel" id="successCaseCarousel">
+            <article class="success-case-card is-active" data-case-slide>
+              <div class="success-case-copy">
+                <span class="case-status">Employer Nomination Scheme 186 · Granted</span>
+                <h3>女士 82年，学历：计算机硕士</h3>
+                <dl class="case-facts">
+                  <div>
+                    <dt>职业</dt>
+                    <dd>261111-Business Analyst</dd>
+                  </div>
+                  <div>
+                    <dt>签约时间</dt>
+                    <dd>24年1月</dd>
+                  </div>
+                  <div>
+                    <dt>职业评估获批用时</dt>
+                    <dd>1个月</dd>
+                  </div>
+                  <div>
+                    <dt>岗位提名</dt>
+                    <dd>24年5月10日</dd>
+                  </div>
+                  <div>
+                    <dt>提名获批</dt>
+                    <dd>25年12月20日</dd>
+                  </div>
+                  <div>
+                    <dt>186获批</dt>
+                    <dd>2026年1月19日</dd>
+                  </div>
+                </dl>
+              </div>
+              <figure class="success-case-proof">
+                <img src="assets/case-186-grant-2026.jpg" alt="186签证获批信截图" />
+              </figure>
+            </article>
+            <article class="success-case-card" data-case-slide>
+              <div class="success-case-copy">
+                <span class="case-status">Employer Nomination Scheme 186 · Granted</span>
+                <h3>男士 84年，学历：信息科学与技术</h3>
+                <dl class="case-facts">
+                  <div>
+                    <dt>职业</dt>
+                    <dd>261313:Software Engineer</dd>
+                  </div>
+                  <div>
+                    <dt>签约时间</dt>
+                    <dd>24年4月</dd>
+                  </div>
+                  <div>
+                    <dt>职业评估获批时</dt>
+                    <dd>2024年7个月</dd>
+                  </div>
+                  <div>
+                    <dt>岗位提名</dt>
+                    <dd>24年9月</dd>
+                  </div>
+                  <div>
+                    <dt>提名获批</dt>
+                    <dd>26年1月</dd>
+                  </div>
+                  <div>
+                    <dt>186获批</dt>
+                    <dd>2026年3月20日</dd>
+                  </div>
+                </dl>
+              </div>
+            <figure class="success-case-proof">
+              <img src="assets/case-186-grant-2026-03.png" alt="186签证获批信截图" />
+            </figure>
+          </article>
+          <article class="success-case-card" data-case-slide>
+            <div class="success-case-copy">
+              <span class="case-status">Employer Nomination Scheme 186 · Granted</span>
+              <h3>男士 86年，本科学历：环境工程</h3>
+              <dl class="case-facts">
+                <div>
+                  <dt>职业</dt>
+                  <dd>233211 Civil Engineer</dd>
+                </div>
+                <div>
+                  <dt>签约时间</dt>
+                  <dd>24年6月</dd>
+                </div>
+                <div>
+                  <dt>职业评估获批时</dt>
+                  <dd>2024年8个月</dd>
+                </div>
+                <div>
+                  <dt>岗位提名</dt>
+                  <dd>24年11月</dd>
+                </div>
+                <div>
+                  <dt>提名获批</dt>
+                  <dd>26年2月</dd>
+                </div>
+                <div>
+                  <dt>186获批</dt>
+                  <dd>2026年4月23日</dd>
+                </div>
+              </dl>
+            </div>
+            <figure class="success-case-proof">
+              <img src="assets/case-186-grant-2026-04.png" alt="186签证获批信截图" />
+            </figure>
+          </article>
+        </div>
+        <div class="case-carousel-controls" aria-label="成功案例轮播控制">
+          <button type="button" id="casePrev" aria-label="上一个成功案例"><i data-lucide="chevron-left"></i></button>
+          <div class="case-carousel-dots" aria-label="成功案例轮播页码">
+            <button type="button" class="is-active" data-case-dot aria-label="查看第 1 个成功案例"></button>
+            <button type="button" data-case-dot aria-label="查看第 2 个成功案例"></button>
+            <button type="button" data-case-dot aria-label="查看第 3 个成功案例"></button>
+          </div>
+          <button type="button" id="caseNext" aria-label="下一个成功案例"><i data-lucide="chevron-right"></i></button>
+        </div>
+        </div>
+      </section>
+
       <section class="workspace self-test-workspace" id="self-test">
         <div class="section-inner">
         <div class="section-head">
           <div>
-            <p class="eyebrow">自测工具</p>
+            <p class="eyebrow">·自测工具</p>
             <h2>雇主担保路径自测</h2>
           </div>
           <span class="data-note">自测结果只做准备方向，正式判断以澳洲官方和专业意见为准</span>
@@ -281,15 +419,50 @@
         </div>
         <form class="self-test" id="selfTestForm">
           <h3>签证路径自测</h3>
-          <label>年龄 <input id="ageInput" type="number" min="18" max="60" value="32" /></label>
-          <label>职业 <input id="testOccupation" type="text" value="Chef" /></label>
-          <label>工作年限 <input id="yearsInput" type="number" min="0" max="30" value="4" /></label>
+          <label>年龄
+            <select id="ageInput">
+              <option value="18-24">18-24 岁</option>
+              <option value="25-32" selected>25-32 岁</option>
+              <option value="33-39">33-39 岁</option>
+              <option value="40-44">40-44 岁</option>
+              <option value="45+">45 岁及以上</option>
+            </select>
+          </label>
+          <label>最高学历
+            <select id="qualificationInput">
+              <option value="doctorate">博士学位</option>
+              <option value="bachelor" selected>本科或硕士学位</option>
+              <option value="diploma">澳洲文凭 / 技工证书</option>
+              <option value="recognized">评估机构认可的学历或奖项</option>
+              <option value="none">暂未匹配官方学历项</option>
+            </select>
+          </label>
+          <label>当前职业
+            <select id="testOccupation">
+              <option value="Chef">Chef</option>
+            </select>
+          </label>
+          <label>相关工作年限
+            <select id="yearsInput">
+              <option value="0">少于 1 年</option>
+              <option value="1">1-2 年</option>
+              <option value="3" selected>3-4 年</option>
+              <option value="5">5-7 年</option>
+              <option value="8">8 年及以上</option>
+            </select>
+          </label>
+          <label class="wide-field">主要工作内容
+            <textarea id="workContentInput" rows="3" placeholder="例如：菜单设计、备餐、厨房管理、库存控制、食品安全、带教员工"></textarea>
+          </label>
           <label>英语情况
             <select id="englishInput">
-              <option value="competent">达到基本要求</option>
-              <option value="limited">需要补强</option>
-              <option value="strong">较强</option>
+              <option value="ielts" selected>雅思</option>
+              <option value="toefl">托福</option>
+              <option value="pet">PET</option>
             </select>
+          </label>
+          <label>澳洲学习经历
+            <input id="australianStudyInput" type="text" maxlength="4" inputmode="decimal" pattern="[0-9]*\\.?[0-9]*" placeholder="例如：2.5" />
           </label>
           <button type="submit"><i data-lucide="clipboard-check"></i>生成行动清单</button>
           <output id="testOutput"></output>
@@ -329,7 +502,7 @@
         </div>
         <div class="wechat-card">
           <strong>添加微信领取名单</strong>
-          <span class="wechat-id">WeChat: AU-Sponsor-List</span>
+          <img class="wechat-qr" src="assets/wechat-au-sponsor-list-qr.png" alt="添加微信二维码" />
           <small>备注：职业 + 城市，例如 Chef Adelaide、RN Perth、IT Sydney。</small>
         </div>
         </div>
@@ -346,6 +519,58 @@
     </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="data/visa-sponsor-jobs.js"></script>
     <script src="app.js"></script>
+    <script>
+      (() => {
+        const carousel = document.querySelector("#successCaseCarousel");
+        if (!carousel || carousel.dataset.carouselReady === "true") return;
+
+        const slides = Array.from(carousel.querySelectorAll("[data-case-slide]"));
+        const dots = Array.from(document.querySelectorAll("[data-case-dot]"));
+        const prev = document.querySelector("#casePrev");
+        const next = document.querySelector("#caseNext");
+        if (slides.length <= 1) return;
+
+        carousel.dataset.carouselReady = "true";
+        let current = 0;
+        let timer;
+
+        const showSlide = (index) => {
+          current = (index + slides.length) % slides.length;
+          slides.forEach((slide, slideIndex) => {
+            slide.classList.toggle("is-active", slideIndex === current);
+          });
+          dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === current);
+          });
+        };
+
+        const start = () => {
+          window.clearInterval(timer);
+          timer = window.setInterval(() => showSlide(current + 1), 6000);
+        };
+
+        prev?.addEventListener("click", () => {
+          showSlide(current - 1);
+          start();
+        });
+        next?.addEventListener("click", () => {
+          showSlide(current + 1);
+          start();
+        });
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+            showSlide(index);
+            start();
+          });
+        });
+        carousel.addEventListener("mouseenter", () => window.clearInterval(timer));
+        carousel.addEventListener("mouseleave", start);
+
+        showSlide(0);
+        start();
+      })();
+    </script>
   </body>
 </html>

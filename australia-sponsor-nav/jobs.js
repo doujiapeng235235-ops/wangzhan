@@ -34,6 +34,18 @@ function fillSelect(id, label, values) {
   ].join("");
 }
 
+function getKeywordTerms(value) {
+  const keyword = value.trim().toLowerCase();
+  if (!keyword) return [];
+
+  const terms = keyword
+    .split(/[|\/,，、]+/)
+    .map((term) => term.trim())
+    .filter(Boolean);
+
+  return terms.length > 1 ? terms : [keyword];
+}
+
 function renderMeta() {
   const countries = uniq(jobs.map((job) => job.country));
   const classifications = uniq(jobs.flatMap((job) => job.classifications));
@@ -44,17 +56,25 @@ function renderMeta() {
   fillSelect("jobVisa", "全部签证", visas);
 
   byId("databaseStats").innerHTML = `
-    <div><i data-lucide="briefcase-business"></i><strong>${database.capturedTotal || jobs.length}</strong><span>已入库岗位</span></div>
-    <div><i data-lucide="layers-3"></i><strong>${classifications.length}</strong><span>行业分类</span></div>
+    <div>
+      <i data-lucide="briefcase-business"></i>
+      <span class="metric-label">岗位样本</span>
+      <strong>${database.capturedTotal || jobs.length}</strong>
+      <span>已入库担保岗位</span>
+    </div>
+    <div>
+      <i data-lucide="layers-3"></i>
+      <span class="metric-label">覆盖范围</span>
+      <strong>${classifications.length}</strong>
+      <span>行业分类可筛选</span>
+    </div>
   `;
 
-  const scrapedAt = database.scrapedAt ? new Date(database.scrapedAt).toLocaleString("zh-CN") : "未知";
-  byId("jobSourceMeta").textContent = `来源页数 ${database.pages || "-"} · 抓取时间 ${scrapedAt}`;
   if (window.lucide) window.lucide.createIcons();
 }
 
 function filterJobs() {
-  const keyword = byId("jobKeyword").value.trim().toLowerCase();
+  const keywordTerms = getKeywordTerms(byId("jobKeyword").value);
   const country = byId("jobCountry").value;
   const classification = byId("jobClassification").value;
   const visa = byId("jobVisa").value;
@@ -70,7 +90,8 @@ function filterJobs() {
       .join(" ")
       .toLowerCase();
 
-    const matchesKeyword = !keyword || haystack.includes(keyword);
+    const matchesKeyword =
+      keywordTerms.length === 0 || keywordTerms.some((term) => haystack.includes(term));
     const matchesCountry = country === "all" || job.country === country;
     const matchesClassification =
       classification === "all" || (job.classifications || []).includes(classification);
@@ -147,7 +168,7 @@ function renderJobs() {
             <td>${(job.classifications || []).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</td>
             <td>${(job.visas || []).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</td>
             <td>${escapeHtml(job.publishDate || "-")}</td>
-            <td><a href="${escapeAttr(job.detailUrl)}" target="_blank" rel="noreferrer"><i data-lucide="external-link"></i>原始页</a></td>
+            <td><a href="index.html#contact"><i data-lucide="message-circle"></i>联系我</a></td>
           </tr>
         `
       )
@@ -157,8 +178,12 @@ function renderJobs() {
 }
 
 function bindEvents() {
-  ["jobKeyword", "jobCountry", "jobClassification", "jobVisa"].forEach((id) => {
-    byId(id).addEventListener("input", filterJobs);
+  byId("jobFilters").addEventListener("submit", (event) => {
+    event.preventDefault();
+    filterJobs();
+  });
+
+  ["jobCountry", "jobClassification", "jobVisa"].forEach((id) => {
     byId(id).addEventListener("change", filterJobs);
   });
 

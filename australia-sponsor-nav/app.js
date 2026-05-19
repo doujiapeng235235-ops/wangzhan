@@ -204,6 +204,42 @@ const state = {
 
 const $ = (selector) => document.querySelector(selector);
 let currentLanguage = localStorage.getItem("siteLanguage") || "zh";
+const sponsorJobs = window.VISA_SPONSOR_JOBS_DATABASE?.jobs || [];
+
+function uniqueSorted(values) {
+  return [...new Set(values.filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+}
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function populateHomeDatabaseOptions() {
+  const classificationSelect = $("#heroClassification");
+  if (classificationSelect && sponsorJobs.length) {
+    const classifications = uniqueSorted(sponsorJobs.flatMap((job) => job.classifications || []));
+    classificationSelect.innerHTML = [
+      '<option value="all">全部行业</option>',
+      ...classifications.map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`)
+    ].join("");
+  }
+
+  const occupationSelect = $("#testOccupation");
+  if (occupationSelect && sponsorJobs.length) {
+    const priorityTitles = occupations.flatMap((item) => item.titles);
+    const jobTitles = sponsorJobs.map((job) => job.title);
+    const titles = uniqueSorted([...priorityTitles, ...jobTitles]);
+    occupationSelect.innerHTML = titles
+      .map((title) => `<option value="${escapeHtml(title)}"${title === "Chef" ? " selected" : ""}>${escapeHtml(title)}</option>`)
+      .join("");
+  }
+}
 
 const englishText = {
   "雇主机会导航": "Employer Opportunity Navigator",
@@ -346,12 +382,30 @@ const englishText = {
   "联系雇主": "Contact Employers",
   "路径选择": "Pathway Choice",
   "年龄": "Age",
-  "职业": "Occupation",
-  "工作年限": "Years of Experience",
+  "最高学历": "Highest Qualification",
+  "当前职业": "Current Occupation",
+  "相关工作年限": "Relevant Work Experience",
+  "主要工作内容": "Main Duties",
   "英语情况": "English Level",
-  "达到基本要求": "Meets basic requirements",
-  "需要补强": "Needs improvement",
-  "较强": "Strong",
+  "18-24 岁": "18-24 years",
+  "25-32 岁": "25-32 years",
+  "33-39 岁": "33-39 years",
+  "40-44 岁": "40-44 years",
+  "45 岁及以上": "45 years and over",
+  "博士学位": "Doctorate",
+  "本科或硕士学位": "Bachelor or Masters degree",
+  "澳洲文凭 / 技工证书": "Australian diploma or trade qualification",
+  "评估机构认可的学历或奖项": "Qualification or award recognised by the assessing authority",
+  "暂未匹配官方学历项": "No matching official qualification item yet",
+  "少于 1 年": "Less than 1 year",
+  "1-2 年": "1-2 years",
+  "3-4 年": "3-4 years",
+  "5-7 年": "5-7 years",
+  "8 年及以上": "8 years or more",
+  "雅思": "IELTS",
+  "托福": "TOEFL",
+  "PET": "PET",
+  "澳洲学习经历": "Australian Study",
   "目标地区": "Target Region",
   "愿意去偏远地区": "Open to regional areas",
   "只考虑大城市": "Major cities only",
@@ -629,37 +683,74 @@ function renderMap(items = getFilteredEmployers()) {
 
 function runSelfTest(event) {
   event.preventDefault();
-  const age = Number($("#ageInput").value);
+  const ageBand = $("#ageInput").value;
+  const qualification = $("#qualificationInput").value;
   const years = Number($("#yearsInput").value);
   const english = $("#englishInput").value;
+  const australianStudy = Number($("#australianStudyInput").value || 0);
   const occupation = $("#testOccupation").value.trim() || state.occupation.name;
+  const workContent = $("#workContentInput").value.trim();
   const paths = [];
+  const notes = [];
 
-  if (years >= 2) paths.push("482");
-  if (years >= 3 && age < 45) paths.push("186");
-  if (english === "limited") paths.push("先补英语与材料一致性");
-  if (english === "limited" || years < 2) paths.push("Labour Agreement 方向可进一步核对");
+  if (years >= 1) {
+    paths.push("482 / Skills in Demand");
+  } else {
+    notes.push("482 通常要先核对提名职业、至少 1 年相关工作经历、英语和薪资门槛。");
+  }
+
+  if (years >= 3 && ageBand !== "45+") {
+    paths.push("186 Direct Entry");
+  } else {
+    notes.push("186 Direct Entry 重点看 45 岁以下、Competent English、职业评估和至少 3 年相关经验。");
+  }
+
+  notes.push(`英语考试类型已选择 ${$("#englishInput").selectedOptions[0].textContent}，下一步需要补充对应成绩。`);
+  if (qualification === "none") notes.push("学历需要对照职业评估机构要求补证书、学历或行业注册。");
+  if (australianStudy > 0) notes.push(`澳洲学习经历已填写 ${australianStudy} 年，可作为材料亮点并核对 Australian study requirement。`);
+  if (!workContent) notes.push("请补充主要工作内容，方便对照 ANZSCO 职责、雇主岗位描述和职业评估。");
+  if (years < 1 || qualification === "none") paths.push("Labour Agreement / DAMA 方向可进一步核对");
 
   const zhPaths = paths.join(" / ") || "需要补齐基础条件后再评估";
   const enPaths =
     paths
       .map((path) => {
-        if (path === "先补英语与材料一致性") return "Improve English and document consistency first";
-        if (path === "Labour Agreement 方向可进一步核对") return "Labour Agreement may be worth checking";
+        if (path === "482 / Skills in Demand") return "482 / Skills in Demand";
+        if (path === "186 Direct Entry") return "186 Direct Entry";
+        if (path === "Labour Agreement / DAMA 方向可进一步核对") return "Labour Agreement / DAMA may be worth checking";
         return path;
       })
       .join(" / ") || "Build the basic requirements first, then reassess";
+
+  const zhNotes = notes.length
+    ? `<br /><strong>需要核对：</strong>${notes.join(" ")}`
+    : "<br /><strong>当前信号：</strong>年龄、英语和经验组合较完整，可以优先找真实雇主岗位并核对职业清单。";
+  const enNotes = notes.length
+    ? `<br /><strong>Check points:</strong> ${notes
+        .map((note) =>
+          note
+            .replace("482 通常要先核对提名职业、至少 1 年相关工作经历、英语和薪资门槛。", "For 482, check the nominated occupation, at least 1 year of relevant experience, English, and salary threshold.")
+            .replace("186 Direct Entry 重点看 45 岁以下、Competent English、职业评估和至少 3 年相关经验。", "For 186 Direct Entry, focus on being under 45, Competent English, skills assessment, and at least 3 years of relevant experience.")
+            .replace(`英语考试类型已选择 ${$("#englishInput").selectedOptions[0].textContent}，下一步需要补充对应成绩。`, `English test type is ${$("#englishInput").selectedOptions[0].textContent}; add the matching score next.`)
+            .replace("学历需要对照职业评估机构要求补证书、学历或行业注册。", "Match qualifications, certificates, or registration to the assessing authority requirements.")
+            .replace(`澳洲学习经历已填写 ${australianStudy} 年，可作为材料亮点并核对 Australian study requirement。`, `Australian study is ${australianStudy} years; it can strengthen the evidence and should be checked against the Australian study requirement.`)
+            .replace("请补充主要工作内容，方便对照 ANZSCO 职责、雇主岗位描述和职业评估。", "Add main duties to compare against ANZSCO tasks, employer job descriptions, and skills assessment.")
+        )
+        .join(" ")}`
+    : "<br /><strong>Current signal:</strong> age, English, and experience look relatively complete; prioritize genuine employer roles and occupation list checks.";
 
   const output = $("#testOutput");
   output.dataset.zhHtml = `
     <strong>${occupation} 初步判断：</strong><br />
     可能路径：${zhPaths}。<br />
-    下一步：核对职业清单和薪资门槛，准备英文简历、证书、推荐人、岗位关键词，并优先联系有历史担保记录或正在招聘的雇主。
+    关键背景：${$("#ageInput").selectedOptions[0].textContent}，${$("#qualificationInput").selectedOptions[0].textContent}，英语考试 ${$("#englishInput").selectedOptions[0].textContent}，澳洲学习 ${australianStudy || 0} 年。${zhNotes}<br />
+    下一步：核对职业清单、ANZSCO 工作内容、薪资门槛和雇主提名条件，准备英文简历、证书、推荐人、岗位关键词，并优先联系有历史担保记录或正在招聘的雇主。
   `;
   output.dataset.enHtml = `
     <strong>${occupation} initial assessment:</strong><br />
     Possible pathways: ${enPaths}.<br />
-    Next step: check occupation lists and salary thresholds, prepare an English resume, certificates, referees, and job keywords, and prioritize employers with past sponsorship signals or active hiring.
+    Profile: ${$("#ageInput").selectedOptions[0].textContent}, ${$("#qualificationInput").selectedOptions[0].textContent}, English test ${$("#englishInput").selectedOptions[0].textContent}, Australian study ${australianStudy || 0} years.${enNotes}<br />
+    Next step: check occupation lists, ANZSCO duties, salary thresholds, and nomination conditions; prepare an English resume, certificates, referees, and job keywords; then prioritize employers with past sponsorship signals or active hiring.
   `;
   applyLanguage(currentLanguage);
 }
@@ -677,7 +768,7 @@ function addAiMessage(text, type = "assistant") {
 function buildAiAnswer(question) {
   const occupation = $("#testOccupation")?.value.trim() || state.occupation.name;
   const years = Number($("#yearsInput")?.value || 0);
-  const english = $("#englishInput")?.value || "competent";
+  const english = $("#englishInput")?.value || "ielts";
   const lower = question.toLowerCase();
   const isEnglish = currentLanguage === "en";
 
@@ -718,6 +809,57 @@ function askAi(question) {
   if ($("#aiQuestion")) $("#aiQuestion").value = "";
 }
 
+function initSuccessCaseCarousel() {
+  const carousel = $("#successCaseCarousel");
+  if (!carousel) return;
+
+  const slides = Array.from(carousel.querySelectorAll("[data-case-slide]"));
+  const dots = Array.from(document.querySelectorAll("[data-case-dot]"));
+  const prev = $("#casePrev");
+  const next = $("#caseNext");
+  if (slides.length <= 1) return;
+  if (carousel.dataset.carouselReady === "true") return;
+  carousel.dataset.carouselReady = "true";
+
+  let current = 0;
+  let timer;
+
+  const showSlide = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle("is-active", slideIndex === current);
+    });
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === current);
+    });
+  };
+
+  const start = () => {
+    window.clearInterval(timer);
+    timer = window.setInterval(() => showSlide(current + 1), 6000);
+  };
+
+  prev?.addEventListener("click", () => {
+    showSlide(current - 1);
+    start();
+  });
+  next?.addEventListener("click", () => {
+    showSlide(current + 1);
+    start();
+  });
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showSlide(index);
+      start();
+    });
+  });
+  carousel.addEventListener("mouseenter", () => window.clearInterval(timer));
+  carousel.addEventListener("mouseleave", start);
+
+  showSlide(0);
+  start();
+}
+
 function bindEvents() {
   const heroSearch = $("#heroSearch");
   if (heroSearch) {
@@ -726,12 +868,10 @@ function bindEvents() {
       const query = $("#searchInput").value.trim();
       const country = $("#heroCountry")?.value || "all";
       const classification = $("#heroClassification")?.value || "all";
-      const visa = $("#heroVisa")?.value || "all";
       const params = new URLSearchParams();
       if (query) params.set("q", query);
       if (country !== "all") params.set("country", country);
       if (classification !== "all") params.set("classification", classification);
-      if (visa !== "all") params.set("visa", visa);
       state.occupation = findOccupation(query);
       const target = params.toString() ? `jobs.html?${params.toString()}` : "jobs.html";
       window.location.href = target;
@@ -755,9 +895,9 @@ function bindEvents() {
     if (filter) filter.addEventListener("change", renderEmployers);
   });
 
-  $("#selfTestForm").addEventListener("submit", runSelfTest);
-  $("#askAiButton").addEventListener("click", () => askAi());
-  $("#aiQuestion").addEventListener("keydown", (event) => {
+  $("#selfTestForm")?.addEventListener("submit", runSelfTest);
+  $("#askAiButton")?.addEventListener("click", () => askAi());
+  $("#aiQuestion")?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       askAi();
@@ -766,14 +906,16 @@ function bindEvents() {
   document.querySelectorAll("[data-ai-prompt]").forEach((button) => {
     button.addEventListener("click", () => askAi(button.dataset.aiPrompt));
   });
-  $("#languageSelect").addEventListener("change", (event) => {
+  $("#languageSelect")?.addEventListener("change", (event) => {
     applyLanguage(event.target.value);
     if (window.lucide) window.lucide.createIcons();
   });
 }
 
+populateHomeDatabaseOptions();
 fillFilters();
 renderOccupation(state.occupation);
+initSuccessCaseCarousel();
 bindEvents();
 applyLanguage(currentLanguage);
 if (window.lucide) window.lucide.createIcons();

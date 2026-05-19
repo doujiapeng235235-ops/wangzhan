@@ -9,7 +9,7 @@
   <body>
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="返回首页">
-        <span class="brand-mark"><i data-lucide="list-checks"></i></span>
+        <span class="brand-mark"><img src="assets/nav-logo-shield-ai-transparent.png" alt="" aria-hidden="true" /></span>
         <span>
           <strong>CSOL职业名单</strong>
           <small>Core Skills Occupation List</small>
@@ -26,38 +26,30 @@
     <main>
       <section class="csol-hero">
         <div>
-          <p class="eyebrow">三级页面 · PDF完整内容</p>
           <h1>The Core Skills Occupation List (CSOL) - 中英文对照</h1>
-          <p class="lede">以下内容来自用户提供的 PDF 文件，保留英文职业名称、ANZSCO code 和中文参考译名，方便和岗位数据库、职业库一起核对。</p>
+          <p class="lede">按 CSOL 整理核心技能职业名称、ANZSCO code 与中文参考译名，方便先确认职业方向，再联动岗位数据库和职业库规划申请路径。</p>
         </div>
         <div class="csol-summary-card">
+          <i data-lucide="badge-check"></i>
+          <span class="metric-label">CSOL 职业索引</span>
           <strong>456</strong>
-          <span>个职业条目</span>
+          <span>核心技能职业条目</span>
         </div>
       </section>
 
       <section class="csol-document">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">PDF说明</p>
-            <h2>职业名称、ANZSCO code 与中文参考译名</h2>
-          </div>
-          <a class="section-link" href="jobs.html">回到岗位数据库 <i data-lucide="arrow-right"></i></a>
-        </div>
-        <div class="csol-notes">
-            <p>The Core Skills Occupation List (CSOL) - 中英文对照</p>
-            <p>基于用户上传 PDF《The Core Skills Occupation List 》整理，英文职业名称和 ANZSCO code 保持原文。</p>
-            <p>说明：中文为参考译名，正式申请、职业评估和雇主担保仍应以英文职业名称、 ANZSCO code、岗位职责和移民局/法律文本要求为准。ICT = Information and Communications</p>
-            <p>Technology（信息与通信技术） ；nec = not elsewhere classified （未另分类） 。</p>
-            <p>序号 ANZSCO</p>
-            <p>Occupation (English) 中文译名（参考）</p>
-        </div>
-
         <div class="section-head csol-list-head">
           <div>
             <p class="eyebrow">完整名单</p>
             <h2>456 个 CSOL 职业条目</h2>
           </div>
+        </div>
+        <div class="csol-search-panel" role="search">
+          <label for="csolSearchInput">
+            搜索职业名单
+            <input id="csolSearchInput" type="search" placeholder="输入职业名称、ANZSCO code 或中文译名" autocomplete="off" />
+          </label>
+          <span id="csolSearchCount">显示 456 个职业条目</span>
         </div>
         <div class="csol-table-wrap">
           <table class="csol-table">
@@ -2818,6 +2810,27 @@
     </footer>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
+      const csolSearchInput = document.getElementById("csolSearchInput");
+      const csolSearchCount = document.getElementById("csolSearchCount");
+      const csolRows = Array.from(document.querySelectorAll(".csol-table tbody tr"));
+
+      function filterCsolRows() {
+        const query = csolSearchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        csolRows.forEach((row) => {
+          const matches = !query || row.textContent.toLowerCase().includes(query);
+          row.hidden = !matches;
+          if (matches) visibleCount += 1;
+        });
+
+        csolSearchCount.textContent = query
+          ? `找到 ${visibleCount} 个匹配职业`
+          : `显示 ${csolRows.length} 个职业条目`;
+      }
+
+      csolSearchInput.addEventListener("input", filterCsolRows);
+
       if (window.lucide) window.lucide.createIcons();
     </script>
   </body>

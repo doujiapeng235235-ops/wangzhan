@@ -9,7 +9,7 @@
   <body>
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="返回首页">
-        <span class="brand-mark"><i data-lucide="database"></i></span>
+        <span class="brand-mark"><img src="assets/nav-logo-shield-ai-transparent.png" alt="" aria-hidden="true" /></span>
         <span>
           <strong>岗位数据库</strong>
           <small>VisaSponsor.jobs 抓取数据</small>
@@ -27,10 +27,10 @@
     <main>
       <section class="database-hero">
         <div>
-          <p class="eyebrow">二级页面 · 岗位机会搜索</p>
+          <p class="eyebrow">岗位机会搜索</p>
           <h1>签证担保岗位数据库</h1>
           <p class="lede">
-            已从 visasponsor.jobs/api/jobs 抓取岗位列表，支持按关键词、国家、行业和签证标签筛选，并可跳转原始岗位详情页。
+            聚合澳洲雇主担保相关岗位，帮助你按职业关键词、行业、国家与签证类型快速筛选，并回到原始岗位页面核对招聘要求。
           </p>
           <div class="page-actions">
             <a href="occupations.html"><i data-lucide="briefcase-business"></i>先看职业库</a>
@@ -48,11 +48,12 @@
             建议先确认职业名称、ANZSCO 方向和英文岗位关键词，再回到岗位数据库按行业、签证标签和公司名称筛选机会。
           </p>
         </div>
-        <div class="csol-actions">
-          <a href="csol.html">查看CSOL职业名单</a>
-          <a href="occupations.html">打开职业库</a>
-        </div>
-      </section>
+    <div class="csol-actions">
+      <a href="csol.html">查看CSOL职业名单</a>
+      <a href="occupations.html">打开职业库</a>
+      <a href="https://immi.homeaffairs.gov.au/visas/employing-and-sponsoring-someone/employing-overseas-workers" target="_blank" rel="noreferrer">官方雇主担保说明</a>
+    </div>
+  </section>
 
       <section class="database-shell">
         <form class="database-filters" id="jobFilters">
@@ -72,13 +73,13 @@
             签证
             <select id="jobVisa"></select>
           </label>
+          <button type="submit" id="searchJobFilters"><i data-lucide="search"></i>搜索</button>
           <button type="button" id="resetJobFilters"><i data-lucide="rotate-ccw"></i>重置筛选</button>
         </form>
 
         <div class="database-toolbar">
           <div>
             <strong id="jobResultCount">0 个岗位</strong>
-            <span id="jobSourceMeta"></span>
           </div>
           <div class="database-tools" aria-label="结果排序和分页设置">
             <label for="jobSort">排序
