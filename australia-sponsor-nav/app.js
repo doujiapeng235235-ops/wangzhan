@@ -205,6 +205,8 @@ const state = {
 const $ = (selector) => document.querySelector(selector);
 let currentLanguage = localStorage.getItem("siteLanguage") || "zh";
 const sponsorJobs = window.VISA_SPONSOR_JOBS_DATABASE?.jobs || [];
+const WORDPRESS_HOME_ENDPOINT =
+  "https://cms.workroo.cn/?rest_route=/wp/v2/pages&slug=home&_embed=1";
 
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))]
@@ -860,6 +862,97 @@ function initSuccessCaseCarousel() {
   start();
 }
 
+function getAcfImageUrl(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value !== "object") return "";
+
+  const sizeValue =
+    value.sizes?.full ||
+    value.sizes?.large ||
+    value.sizes?.medium ||
+    value.media_details?.sizes?.full?.source_url ||
+    value.media_details?.sizes?.large?.source_url ||
+    value.media_details?.sizes?.medium?.source_url;
+  const candidate = value.url || value.source_url || value.guid?.rendered || sizeValue;
+
+  if (typeof candidate === "string") return candidate.trim();
+  if (candidate && typeof candidate === "object") return getAcfImageUrl(candidate);
+  return "";
+}
+
+function setCmsText(selector, value) {
+  if (typeof value !== "string" && typeof value !== "number") return;
+  const text = String(value).trim();
+  const element = $(selector);
+  if (!element || !text) return;
+
+  element.textContent = text;
+  element.dataset.cmsManaged = "true";
+}
+
+function setCmsHeroBackground(value) {
+  const imageUrl = getAcfImageUrl(value);
+  const hero = $(".hero");
+  if (!hero || !imageUrl) return;
+
+  const safeUrl = imageUrl.replace(/"/g, "%22");
+  hero.style.backgroundImage = `linear-gradient(90deg, rgba(3, 14, 32, 0.98) 0%, rgba(5, 26, 58, 0.92) 42%, rgba(5, 26, 58, 0.56) 68%, rgba(5, 26, 58, 0.18) 100%), url("${safeUrl}")`;
+  hero.style.backgroundPosition = "center";
+  hero.style.backgroundSize = "cover";
+}
+
+function setCmsWechatId(value) {
+  if (typeof value !== "string" && typeof value !== "number") return;
+  const text = String(value).trim();
+  const card = $(".wechat-card");
+  if (!card || !text) return;
+
+  let target = card.querySelector(".wechat-id");
+  if (!target) {
+    target = document.createElement("span");
+    target.className = "wechat-id";
+    const title = card.querySelector("strong");
+    if (title) {
+      title.insertAdjacentElement("afterend", target);
+    } else {
+      card.prepend(target);
+    }
+  }
+  target.textContent = text;
+  target.dataset.cmsManaged = "true";
+}
+
+async function applyWordPressHomeContent() {
+  try {
+    const response = await fetch(WORDPRESS_HOME_ENDPOINT, {
+      headers: { Accept: "application/json" }
+    });
+    if (!response.ok) return;
+
+    const pages = await response.json();
+    const acf = Array.isArray(pages) ? pages[0]?.acf : null;
+    if (!acf || typeof acf !== "object") return;
+
+    setCmsText(".hero-copy .eyebrow", acf.hero_badge);
+    setCmsText(".hero-copy h1", acf.hero_title);
+    setCmsText(".hero-copy .lede", acf.hero_subtitle);
+    setCmsHeroBackground(acf.hero_background);
+    setCmsText("#contact h2", acf.contact_title);
+    setCmsText("#contact .contact-layout > div:first-child h2 + p", acf.contact_text);
+    setCmsWechatId(acf.wechat_id);
+
+    const qrUrl = getAcfImageUrl(acf.wechat_qr);
+    const qrImage = $(".wechat-card img.wechat-qr");
+    if (qrImage && qrUrl) {
+      qrImage.src = qrUrl;
+      qrImage.dataset.cmsManaged = "true";
+    }
+  } catch (error) {
+    // Keep the static homepage content when WordPress is unavailable.
+  }
+}
+
 function bindEvents() {
   const heroSearch = $("#heroSearch");
   if (heroSearch) {
@@ -919,3 +1012,4 @@ initSuccessCaseCarousel();
 bindEvents();
 applyLanguage(currentLanguage);
 if (window.lucide) window.lucide.createIcons();
+applyWordPressHomeContent();

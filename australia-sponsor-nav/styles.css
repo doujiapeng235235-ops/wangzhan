@@ -11794,3 +11794,149 @@ canvas {
     justify-content: center !important;
   }
 }
+
+/* Mobile-only polish requested from phone screenshots */
+@media (max-width: 768px) {
+  .topbar {
+    gap: 10px !important;
+    padding: 10px 14px 12px !important;
+  }
+
+  .topbar .nav {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .topbar .nav a,
+  .topbar .language-switcher {
+    min-height: 40px !important;
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+  }
+
+  .topbar .nav a[href="jobs.html"] { order: 1 !important; }
+  .topbar .nav a[href="occupations.html"] { order: 2 !important; }
+  .topbar .nav a[href="csol.html"] { order: 3 !important; }
+  .topbar .nav a[href="#self-test"] { order: 4 !important; }
+  .topbar .nav a[href="#contact"]:not(.nav-login):not(.nav-register) { order: 5 !important; }
+  .topbar .nav .nav-login { order: 6 !important; }
+  .topbar .nav .nav-register { order: 7 !important; }
+  .topbar .language-switcher { order: 8 !important; }
+
+  .topbar .nav .nav-login,
+  .topbar .nav .nav-register,
+  .topbar .language-switcher {
+    grid-column: auto !important;
+  }
+
+  .topbar .language-switcher {
+    justify-content: center !important;
+  }
+
+  .topbar .language-switcher select {
+    width: auto !important;
+    min-width: 68px !important;
+  }
+
+  .success-cases {
+    padding-top: 44px !important;
+    padding-bottom: 48px !important;
+  }
+
+  .success-case-card {
+    border-radius: 10px !important;
+    box-shadow: 0 14px 32px rgba(6, 31, 68, 0.07) !important;
+  }
+
+  .success-case-copy {
+    padding: 20px 16px !important;
+    gap: 16px !important;
+  }
+
+  .success-case-copy h3 {
+    font-size: clamp(22px, 7vw, 28px) !important;
+  }
+
+  .case-facts {
+    gap: 8px !important;
+  }
+
+  .case-facts div {
+    padding-bottom: 8px !important;
+  }
+
+  .success-case-proof,
+  .success-case-proof img {
+    min-height: 0 !important;
+  }
+
+  .success-case-proof img {
+    max-height: 380px !important;
+    object-fit: contain !important;
+  }
+
+  .case-carousel-controls {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) 42px !important;
+    align-items: center !important;
+    width: min(100%, 320px) !important;
+    margin-top: 18px !important;
+    padding: 8px 10px !important;
+    border-radius: 999px !important;
+    gap: 8px !important;
+  }
+
+  .case-carousel-controls > button,
+  .case-carousel-dots button {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+  }
+
+  .case-carousel-dots {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar .nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .topbar .nav a[href="#contact"]:not(.nav-login):not(.nav-register),
+  .topbar .language-switcher {
+    grid-column: 1 / -1 !important;
+  }
+
+  .topbar .nav .nav-login {
+    grid-column: 1 !important;
+  }
+
+  .topbar .nav .nav-register {
+    grid-column: 2 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar .nav a,
+  .topbar .language-switcher {
+    min-height: 38px !important;
+    padding: 7px 8px !important;
+    font-size: 12px !important;
+  }
+
+  .topbar .nav a .lucide,
+  .topbar .nav a i[data-lucide] {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .case-carousel-controls {
+    width: min(100%, 292px) !important;
+  }
+}
