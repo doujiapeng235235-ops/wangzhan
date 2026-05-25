@@ -206,7 +206,7 @@ const $ = (selector) => document.querySelector(selector);
 let currentLanguage = localStorage.getItem("siteLanguage") || "zh";
 const sponsorJobs = window.VISA_SPONSOR_JOBS_DATABASE?.jobs || [];
 const WORDPRESS_HOME_ENDPOINT =
-  "https://cms.workroo.cn/?rest_route=/wp/v2/pages&slug=home&_embed=1";
+  "https://cms.workroo.cn/?rest_route=/wp/v2/pages/14";
 
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))]
@@ -930,8 +930,8 @@ async function applyWordPressHomeContent() {
     });
     if (!response.ok) return;
 
-    const pages = await response.json();
-    const acf = Array.isArray(pages) ? pages[0]?.acf : null;
+    const page = await response.json();
+    const acf = page?.acf;
     if (!acf || typeof acf !== "object") return;
 
     setCmsText(".hero-copy .eyebrow", acf.hero_badge);
