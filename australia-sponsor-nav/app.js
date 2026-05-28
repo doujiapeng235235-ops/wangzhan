@@ -207,6 +207,208 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "zh";
 const sponsorJobs = window.VISA_SPONSOR_JOBS_DATABASE?.jobs || [];
 const WORDPRESS_HOME_ENDPOINT =
   "https://cms.workroo.cn/?rest_route=/wp/v2/pages/14";
+const WORDPRESS_MEDIA_ENDPOINT = "https://cms.workroo.cn/?rest_route=/wp/v2/media/";
+const WORDPRESS_ARTICLES_ENDPOINT =
+  "https://cms.workroo.cn/?rest_route=/wp/v2/posts&_embed=1";
+const USE_WORDPRESS_ARTICLES = false;
+
+const guideCategories = [
+  "签证政策解读",
+  "雇主担保岗位分析",
+  "澳洲职业清单",
+  "城市求职机会",
+  "行业求职攻略",
+  "简历面试与投递技巧"
+];
+
+const guideArticles = [
+  {
+    slug: "186-employer-sponsored-visa-guide",
+    title: "186雇主担保适合哪些澳洲求职申请人",
+    description:
+      "186雇主担保适合已经具备职业经验、能匹配澳洲雇主岗位需求，并希望通过雇主提名获得长期身份路径的申请人。",
+    keywords:
+      "186雇主担保,澳洲雇主担保,澳洲工作机会,482转186,澳洲移民工作",
+    publishDate: "2026-05-27",
+    category: "签证政策解读",
+    excerpt:
+      "直接回答186雇主担保的适用人群、岗位匹配重点和准备顺序，帮助申请人先判断方向。",
+    content: `
+      <p>186雇主担保通常适合职业方向清晰、工作经验能被雇主验证，并且岗位职责可以匹配澳洲提名职业的申请人。申请前应先确认职业、英文岗位关键词、雇主岗位真实性和材料完整度。</p>
+      <h2>先判断职业是否能对应提名岗位</h2>
+      <p>申请人需要把自己的工作经历拆成岗位职责，再和澳洲招聘广告、ANZSCO职业描述和雇主实际岗位进行对照。不要只看职位名称，重点看日常职责、技能要求和薪资范围。</p>
+      <h2>再判断雇主是否具备提名基础</h2>
+      <p>雇主担保不是单纯找到工作即可，还要看雇主经营、岗位必要性、薪资水平和招聘需求。求职时建议优先选择长期招聘、岗位描述清晰、公司信息透明的雇主。</p>
+      <h3>准备顺序建议</h3>
+      <p>先整理职业关键词和澳洲版简历，再筛选岗位数据库，最后针对目标岗位准备证书、推荐信、英文能力和面试说法。</p>
+    `,
+    faq: [
+      {
+        question: "186雇主担保一定要先有澳洲工作经验吗？",
+        answer: "不一定，但需要证明你的经验能够匹配提名岗位。是否需要本地经验要看行业、雇主和岗位要求。"
+      },
+      {
+        question: "找186岗位应该先看什么？",
+        answer: "先看职业是否匹配，再看岗位职责、雇主背景、薪资和是否愿意考虑sponsorship。"
+      }
+    ]
+  },
+  {
+    slug: "482-sponsorship-jobs-keywords",
+    title: "如何用关键词筛选482和186签证担保岗位",
+    description:
+      "筛选482和186签证担保岗位时，应同时使用职业名称、行业词、城市词和sponsorship相关英文关键词。",
+    keywords:
+      "482签证工作,186雇主担保岗位,澳洲sponsorship jobs,澳洲工作机会,雇主担保岗位",
+    publishDate: "2026-05-27",
+    category: "雇主担保岗位分析",
+    excerpt:
+      "用Software、Chef、Aged Care、Sponsorship等关键词组合，提高岗位筛选效率。",
+    content: `
+      <p>筛选担保岗位的核心方法是把职业词、城市词和签证词组合起来搜索，例如“Chef sponsorship Sydney”“Software Engineer 482 visa”“Aged Care sponsorship regional”。</p>
+      <h2>岗位关键词不要只用中文职业名</h2>
+      <p>澳洲招聘网站主要使用英文岗位标题。申请人应准备3到8个常见英文岗位名，例如Software Engineer、Developer、Cloud Engineer、Data Analyst等。</p>
+      <h2>签证相关关键词要组合使用</h2>
+      <p>常见关键词包括sponsorship、482 visa、186 visa、employer sponsored、relocation support、visa considered。不同公司写法不同，组合搜索能覆盖更多机会。</p>
+      <h3>筛选后要回到原始招聘页面核对</h3>
+      <p>看到相关岗位后，应打开公司官网或招聘原始页，核对岗位职责、薪资、工作地点、合同类型和申请要求。</p>
+    `,
+    faq: [
+      {
+        question: "搜索到sponsorship就一定能担保吗？",
+        answer: "不一定。sponsorship只是筛选线索，最终仍要以雇主回复、岗位要求和官方政策为准。"
+      },
+      {
+        question: "没有写visa sponsorship的岗位还可以投吗？",
+        answer: "可以投，但要在跟进邮件中礼貌确认是否考虑合适候选人的签证担保。"
+      }
+    ]
+  },
+  {
+    slug: "csol-occupation-list-how-to-use",
+    title: "CSOL职业清单怎么用于澳洲雇主担保求职",
+    description:
+      "CSOL职业清单可用于先确认职业方向，再反推英文岗位关键词和澳洲招聘市场中的相近职位。",
+    keywords:
+      "CSOL职业查询,澳洲职业清单,澳洲雇主担保职业,ANZSCO,澳洲职业库",
+    publishDate: "2026-05-27",
+    category: "澳洲职业清单",
+    excerpt:
+      "解释如何把CSOL、ANZSCO和岗位关键词连接起来，减少职业方向判断错误。",
+    content: `
+      <p>CSOL职业清单的作用不是直接告诉你哪里有工作，而是帮助你确认职业名称、ANZSCO code和技能方向，再用这些信息去筛选岗位。</p>
+      <h2>先看职业名称，再看岗位职责</h2>
+      <p>同一个中文职业可能对应多个英文岗位，申请人应结合ANZSCO描述、学历背景和实际工作内容判断最接近的职业方向。</p>
+      <h2>用职业清单反推求职关键词</h2>
+      <p>确认职业后，可以整理英文岗位标题、常见技能词和行业词。例如Business Analyst可以扩展到Systems Analyst、Product Analyst、Process Analyst等相关方向。</p>
+      <h3>不要只按清单名称投递</h3>
+      <p>招聘广告更关注雇主实际需求。求职时应把清单职业、岗位标题和简历经历三者对齐。</p>
+    `,
+    faq: [
+      {
+        question: "CSOL上有职业就一定可以申请雇主担保吗？",
+        answer: "不一定，还需要看签证类别、雇主提名要求、薪资、经验和职业评估等条件。"
+      },
+      {
+        question: "职业名称不完全一样怎么办？",
+        answer: "重点比较岗位职责和技能要求，必要时咨询专业意见确认职业匹配。"
+      }
+    ]
+  },
+  {
+    slug: "australia-city-job-opportunities",
+    title: "悉尼墨尔本布里斯班等城市如何筛选雇主担保机会",
+    description:
+      "不同澳洲城市的行业结构和招聘机会不同，筛选雇主担保岗位时应结合城市、行业和职业关键词。",
+    keywords:
+      "悉尼工作机会,墨尔本工作机会,布里斯班工作机会,澳洲城市求职,澳洲雇主担保岗位",
+    publishDate: "2026-05-27",
+    category: "城市求职机会",
+    excerpt:
+      "按城市拆解求职方向，帮助申请人判断大城市和偏远地区机会差异。",
+    content: `
+      <p>澳洲城市求职不能只看岗位数量，还要看行业集中度、雇主规模和是否愿意考虑海外或临签申请人。悉尼和墨尔本岗位多，偏远地区在部分行业可能更适合突破。</p>
+      <h2>大城市适合专业岗位密集搜索</h2>
+      <p>悉尼、墨尔本和布里斯班更适合IT、会计、工程、医疗和企业服务类岗位。申请人应重点优化英文简历和LinkedIn。</p>
+      <h2>偏远地区适合看紧缺行业</h2>
+      <p>餐饮、护理、技工、农业和区域服务行业可以关注偏远地区机会。筛选时要核对地区属性、薪资和雇主稳定性。</p>
+      <h3>城市筛选要配合行业筛选</h3>
+      <p>建议用“职业 + 城市 + sponsorship”的组合方式搜索，再把结果导回岗位数据库和公司官网核对。</p>
+    `,
+    faq: [
+      {
+        question: "哪个城市最容易找到雇主担保？",
+        answer: "没有固定答案。要看职业、经验、英文、雇主需求和当地行业结构。"
+      },
+      {
+        question: "偏远地区一定更容易吗？",
+        answer: "偏远地区在部分行业机会更集中，但也要看雇主资质、岗位真实性和生活成本。"
+      }
+    ]
+  },
+  {
+    slug: "aged-care-hospitality-it-sponsorship",
+    title: "IT餐饮护理等行业的澳洲雇主担保求职思路",
+    description:
+      "IT、餐饮、护理、工程等行业筛选澳洲雇主担保岗位时，需要使用不同的关键词和投递策略。",
+    keywords:
+      "澳洲IT工作,澳洲餐饮工作,澳洲护理工作,Aged Care sponsorship,Chef sponsorship",
+    publishDate: "2026-05-27",
+    category: "行业求职攻略",
+    excerpt:
+      "按行业说明求职重点，让申请人知道简历和关键词应该怎么调整。",
+    content: `
+      <p>不同行业的雇主担保求职逻辑不同。IT更看技能栈和项目经验，餐饮更看岗位稳定性和实操经验，护理与Aged Care更看证书、合规要求和排班能力。</p>
+      <h2>IT行业重点展示技能栈和项目结果</h2>
+      <p>Software、Cloud、Data相关岗位应突出技术栈、项目规模、业务结果和英文沟通能力。简历要对齐招聘广告中的关键词。</p>
+      <h2>餐饮和护理行业重点证明可上岗</h2>
+      <p>Chef、Cook、Aged Care、Registered Nurse等方向要明确证书、工作年限、班次适应能力和推荐人。</p>
+      <h3>行业不同，跟进方式也不同</h3>
+      <p>专业岗位适合LinkedIn和官网投递，服务行业可结合门店、招聘邮箱和电话确认。</p>
+    `,
+    faq: [
+      {
+        question: "行业热门就一定适合我吗？",
+        answer: "不一定。热门行业只是机会多，仍要看你的经历、证书、英文和职业匹配度。"
+      },
+      {
+        question: "跨行业申请雇主担保可行吗？",
+        answer: "可行但难度更高，需要证明新行业能力和岗位匹配，通常要先补经验或证书。"
+      }
+    ]
+  },
+  {
+    slug: "australia-resume-interview-sponsorship",
+    title: "申请澳洲雇主担保岗位的简历和面试怎么准备",
+    description:
+      "申请澳洲雇主担保岗位时，简历要突出岗位匹配、英文关键词、可验证经验和签证沟通方式。",
+    keywords:
+      "澳洲简历,澳洲面试,雇主担保求职,澳洲求职技巧,sponsorship resume",
+    publishDate: "2026-05-27",
+    category: "简历面试与投递技巧",
+    excerpt:
+      "回答简历、面试和跟进邮件该怎么围绕sponsorship表达。",
+    content: `
+      <p>申请雇主担保岗位时，简历不能只写经历清单，而要让雇主快速看到你能胜任岗位、经验可验证，并且签证沟通清楚。</p>
+      <h2>简历要先对齐岗位关键词</h2>
+      <p>把招聘广告中的技能、职责和证书要求提取出来，放入简历的Summary、Skills和Experience中。每段经历尽量写结果和数据。</p>
+      <h2>面试中要清楚说明签证状态</h2>
+      <p>不要一开始只谈签证。先证明你能解决岗位问题，再简洁说明当前签证、可入职时间和是否需要sponsorship。</p>
+      <h3>投递后要有跟进节奏</h3>
+      <p>投递后3到5个工作日可发送简短跟进邮件，重点表达岗位匹配和希望确认下一步。</p>
+    `,
+    faq: [
+      {
+        question: "简历里要不要写需要雇主担保？",
+        answer: "可以简洁写清当前签证状态，但重点仍应放在岗位匹配和工作能力上。"
+      },
+      {
+        question: "面试什么时候谈sponsorship？",
+        answer: "通常在雇主对你能力产生兴趣后再具体谈，会更自然也更有效。"
+      }
+    ]
+  }
+];
 
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))]
@@ -881,6 +1083,34 @@ function getAcfImageUrl(value) {
   return "";
 }
 
+function getAcfImageId(value) {
+  if (!value) return "";
+  if (typeof value === "number") return Number.isFinite(value) ? String(value) : "";
+  if (typeof value === "string" && /^\d+$/.test(value.trim())) return value.trim();
+  if (typeof value !== "object") return "";
+  return value.ID || value.id || value.media_id || "";
+}
+
+async function fetchWordPressMediaUrl(mediaId) {
+  if (!mediaId) return "";
+  try {
+    const response = await fetch(`${WORDPRESS_MEDIA_ENDPOINT}${encodeURIComponent(mediaId)}`, {
+      headers: { Accept: "application/json" }
+    });
+    if (!response.ok) return "";
+    const media = await response.json();
+    return getAcfImageUrl(media);
+  } catch (error) {
+    return "";
+  }
+}
+
+async function resolveAcfImageUrl(value) {
+  const directUrl = getAcfImageUrl(value);
+  if (directUrl && !/^\d+$/.test(directUrl)) return directUrl;
+  return fetchWordPressMediaUrl(getAcfImageId(value) || directUrl);
+}
+
 function setCmsText(selector, value) {
   if (typeof value !== "string" && typeof value !== "number") return;
   const text = String(value).trim();
@@ -891,8 +1121,8 @@ function setCmsText(selector, value) {
   element.dataset.cmsManaged = "true";
 }
 
-function setCmsHeroBackground(value) {
-  const imageUrl = getAcfImageUrl(value);
+async function setCmsHeroBackground(value) {
+  const imageUrl = await resolveAcfImageUrl(value);
   const hero = $(".hero");
   if (!hero || !imageUrl) return;
 
@@ -937,12 +1167,12 @@ async function applyWordPressHomeContent() {
     setCmsText(".hero-copy .eyebrow", acf.hero_badge);
     setCmsText(".hero-copy h1", acf.hero_title);
     setCmsText(".hero-copy .lede", acf.hero_subtitle);
-    setCmsHeroBackground(acf.hero_background);
+    await setCmsHeroBackground(acf.hero_background);
     setCmsText("#contact h2", acf.contact_title);
     setCmsText("#contact .contact-layout > div:first-child h2 + p", acf.contact_text);
     setCmsWechatId(acf.wechat_id);
 
-    const qrUrl = getAcfImageUrl(acf.wechat_qr);
+    const qrUrl = await resolveAcfImageUrl(acf.wechat_qr);
     const qrImage = $(".wechat-card img.wechat-qr");
     if (qrImage && qrUrl) {
       qrImage.src = qrUrl;
@@ -951,6 +1181,173 @@ async function applyWordPressHomeContent() {
   } catch (error) {
     // Keep the static homepage content when WordPress is unavailable.
   }
+}
+
+function formatGuideDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+}
+
+function getMetaContent(name) {
+  return document.querySelector(`meta[name="${name}"]`);
+}
+
+function setPageMeta(article) {
+  if (!article) return;
+  document.title = article.title;
+  const description = getMetaContent("description");
+  const keywords = getMetaContent("keywords");
+  if (description) description.setAttribute("content", article.description || "");
+  if (keywords) keywords.setAttribute("content", article.keywords || "");
+}
+
+function normaliseWordPressArticle(post) {
+  const acf = post?.acf || {};
+  const slug = post?.slug || acf.slug;
+  const title = acf.title || post?.title?.rendered;
+  if (!slug || !title) return null;
+
+  return {
+    slug,
+    title,
+    description: acf.description || post?.excerpt?.rendered?.replace(/<[^>]*>/g, "").trim() || "",
+    keywords: acf.keywords || "",
+    publishDate: acf.publishDate || post?.date?.slice(0, 10) || "",
+    category: acf.category || "签证政策解读",
+    excerpt: acf.excerpt || acf.description || "",
+    content: acf.content || post?.content?.rendered || "",
+    faq: Array.isArray(acf.faq) ? acf.faq : []
+  };
+}
+
+async function getGuideArticles() {
+  if (!USE_WORDPRESS_ARTICLES) return guideArticles;
+
+  try {
+    const response = await fetch(WORDPRESS_ARTICLES_ENDPOINT, {
+      headers: { Accept: "application/json" }
+    });
+    if (!response.ok) return guideArticles;
+    const posts = await response.json();
+    const articles = Array.isArray(posts)
+      ? posts.map(normaliseWordPressArticle).filter(Boolean)
+      : [];
+    return articles.length ? articles : guideArticles;
+  } catch (error) {
+    return guideArticles;
+  }
+}
+
+function renderArticleCard(article) {
+  return `
+    <article class="article-card">
+      <span>${escapeHtml(article.category)}</span>
+      <time datetime="${escapeHtml(article.publishDate)}">${escapeHtml(formatGuideDate(article.publishDate))}</time>
+      <h3><a href="article-detail.html?slug=${encodeURIComponent(article.slug)}">${escapeHtml(article.title)}</a></h3>
+      <p>${escapeHtml(article.excerpt || article.description)}</p>
+      <a class="article-card-link" href="article-detail.html?slug=${encodeURIComponent(article.slug)}">阅读全文 <i data-lucide="arrow-right"></i></a>
+    </article>
+  `;
+}
+
+async function initArticlesPage() {
+  const list = $("#articleList");
+  const filters = $("#articleCategoryFilters");
+  if (!list) return;
+
+  const articles = await getGuideArticles();
+  let activeCategory = "全部";
+
+  const render = () => {
+    const visibleArticles =
+      activeCategory === "全部"
+        ? articles
+        : articles.filter((article) => article.category === activeCategory);
+    list.innerHTML = visibleArticles.map(renderArticleCard).join("");
+    if (window.lucide) window.lucide.createIcons();
+  };
+
+  if (filters) {
+    filters.innerHTML = ["全部", ...guideCategories]
+      .map(
+        (category) =>
+          `<button type="button" class="${category === activeCategory ? "is-active" : ""}" data-article-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`
+      )
+      .join("");
+
+    filters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-article-category]");
+      if (!button) return;
+      activeCategory = button.dataset.articleCategory;
+      filters.querySelectorAll("button").forEach((item) => {
+        item.classList.toggle("is-active", item === button);
+      });
+      render();
+    });
+  }
+
+  render();
+}
+
+function renderArticleFaq(faq = []) {
+  if (!faq.length) return "";
+  return `
+    <section class="article-faq">
+      <h2>FAQ</h2>
+      ${faq
+        .map(
+          (item) => `
+            <details>
+              <summary>${escapeHtml(item.question)}</summary>
+              <p>${escapeHtml(item.answer)}</p>
+            </details>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
+async function initArticleDetailPage() {
+  const root = $("#articleDetail");
+  if (!root) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug") || guideArticles[0].slug;
+  const articles = await getGuideArticles();
+  const article = articles.find((item) => item.slug === slug) || guideArticles[0];
+  setPageMeta(article);
+
+  root.innerHTML = `
+    <header class="article-detail-head">
+      <a class="article-back" href="articles.html"><i data-lucide="arrow-left"></i> 返回指南列表</a>
+      <span class="article-category">${escapeHtml(article.category)}</span>
+      <h1>${escapeHtml(article.title)}</h1>
+      <p>${escapeHtml(article.description)}</p>
+      <time datetime="${escapeHtml(article.publishDate)}">发布时间：${escapeHtml(formatGuideDate(article.publishDate))}</time>
+    </header>
+    <div class="article-content">${article.content}</div>
+    ${renderArticleFaq(article.faq)}
+    <nav class="article-inner-links" aria-label="相关文章内链">
+      <a href="jobs.html"><i data-lucide="database"></i> 岗位数据库</a>
+      <a href="occupations.html"><i data-lucide="book-open-check"></i> 职业库</a>
+      <a href="csol.html"><i data-lucide="list-checks"></i> CSOL职业名单</a>
+      <a href="index.html#contact"><i data-lucide="message-circle"></i> 联系我们</a>
+    </nav>
+  `;
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function initGuidePages() {
+  initArticlesPage();
+  initArticleDetailPage();
 }
 
 function bindEvents() {
@@ -1009,6 +1406,7 @@ populateHomeDatabaseOptions();
 fillFilters();
 renderOccupation(state.occupation);
 initSuccessCaseCarousel();
+initGuidePages();
 bindEvents();
 applyLanguage(currentLanguage);
 if (window.lucide) window.lucide.createIcons();
