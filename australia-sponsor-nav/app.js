@@ -221,6 +221,16 @@ const guideCategories = [
   "简历面试与投递技巧"
 ];
 
+const articleCategoryImages = {
+  "签证政策解读": "assets/australia-inner-hero-bg.png",
+  "雇主担保岗位分析": "assets/occupation-job-search-hero-ai.png",
+  "澳洲职业清单": "assets/city-canberra-ai.png",
+  "城市求职机会": "assets/city-sydney-ai.png",
+  "行业求职攻略": "assets/city-melbourne-ai.png",
+  "简历面试与投递技巧": "assets/case-186-grant-2026.jpg"
+};
+const ARTICLES_PER_PAGE = 6;
+
 const guideArticles = [
   {
     slug: "186-employer-sponsored-visa-guide",
@@ -1168,16 +1178,6 @@ async function applyWordPressHomeContent() {
     setCmsText(".hero-copy h1", acf.hero_title);
     setCmsText(".hero-copy .lede", acf.hero_subtitle);
     await setCmsHeroBackground(acf.hero_background);
-    setCmsText("#contact h2", acf.contact_title);
-    setCmsText("#contact .contact-layout > div:first-child h2 + p", acf.contact_text);
-    setCmsWechatId(acf.wechat_id);
-
-    const qrUrl = await resolveAcfImageUrl(acf.wechat_qr);
-    const qrImage = $(".wechat-card img.wechat-qr");
-    if (qrImage && qrUrl) {
-      qrImage.src = qrUrl;
-      qrImage.dataset.cmsManaged = "true";
-    }
   } catch (error) {
     // Keep the static homepage content when WordPress is unavailable.
   }
@@ -1212,6 +1212,8 @@ function normaliseWordPressArticle(post) {
   const slug = post?.slug || acf.slug;
   const title = acf.title || post?.title?.rendered;
   if (!slug || !title) return null;
+  const embeddedImage = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const acfImage = typeof acf.image === "string" ? acf.image : acf.image?.url;
 
   return {
     slug,
@@ -1221,6 +1223,7 @@ function normaliseWordPressArticle(post) {
     publishDate: acf.publishDate || post?.date?.slice(0, 10) || "",
     category: acf.category || "签证政策解读",
     excerpt: acf.excerpt || acf.description || "",
+    image: acf.imageUrl || acf.cover || acfImage || embeddedImage || "",
     content: acf.content || post?.content?.rendered || "",
     faq: Array.isArray(acf.faq) ? acf.faq : []
   };
@@ -1245,31 +1248,93 @@ async function getGuideArticles() {
 }
 
 function renderArticleCard(article) {
+  const image = article.image || articleCategoryImages[article.category] || "assets/hero-sydney-night.png";
   return `
-    <article class="article-card">
-      <span>${escapeHtml(article.category)}</span>
-      <time datetime="${escapeHtml(article.publishDate)}">${escapeHtml(formatGuideDate(article.publishDate))}</time>
-      <h3><a href="article-detail.html?slug=${encodeURIComponent(article.slug)}">${escapeHtml(article.title)}</a></h3>
-      <p>${escapeHtml(article.excerpt || article.description)}</p>
-      <a class="article-card-link" href="article-detail.html?slug=${encodeURIComponent(article.slug)}">阅读全文 <i data-lucide="arrow-right"></i></a>
+    <article class="article-card article-row-card">
+      <a class="article-card-image" href="article-detail.html?slug=${encodeURIComponent(article.slug)}" aria-label="${escapeHtml(article.title)}">
+        <img src="${escapeHtml(image)}" alt="" loading="lazy" />
+      </a>
+      <div class="article-card-body">
+        <div class="article-card-meta">
+          <span>${escapeHtml(article.category)}</span>
+          <time datetime="${escapeHtml(article.publishDate)}">${escapeHtml(formatGuideDate(article.publishDate))}</time>
+        </div>
+        <h3><a href="article-detail.html?slug=${encodeURIComponent(article.slug)}">${escapeHtml(article.title)}</a></h3>
+        <p>${escapeHtml(article.excerpt || article.description)}</p>
+        <a class="article-card-link" href="article-detail.html?slug=${encodeURIComponent(article.slug)}">阅读全文 <i data-lucide="arrow-right"></i></a>
+      </div>
     </article>
   `;
+}
+
+function renderArticleSections(articles, activeCategory) {
+  const categories =
+    activeCategory === "全部"
+      ? guideCategories
+      : [activeCategory];
+
+  return categories
+    .map((category) => {
+      const categoryArticles = articles.filter((article) => article.category === category);
+      if (!categoryArticles.length) return "";
+      return `
+        <section class="article-column-section">
+          <div class="article-column-head">
+            <span>${escapeHtml(category)}</span>
+            <small>${categoryArticles.length} 篇</small>
+          </div>
+          <div class="article-row-list">
+            ${categoryArticles.map(renderArticleCard).join("")}
+          </div>
+        </section>
+      `;
+    })
+    .join("");
 }
 
 async function initArticlesPage() {
   const list = $("#articleList");
   const filters = $("#articleCategoryFilters");
+  const pagination = $("#articlePagination");
   if (!list) return;
 
   const articles = await getGuideArticles();
   let activeCategory = "全部";
+  let currentArticlePage = 1;
+
+  const renderPagination = (visibleArticles, totalPages) => {
+    if (!pagination) return;
+    if (totalPages <= 1) {
+      pagination.hidden = true;
+      pagination.innerHTML = "";
+      return;
+    }
+
+    const rangeStart = (currentArticlePage - 1) * ARTICLES_PER_PAGE + 1;
+    const rangeEnd = Math.min(currentArticlePage * ARTICLES_PER_PAGE, visibleArticles.length);
+    pagination.hidden = false;
+    pagination.innerHTML = `
+      <button type="button" data-article-page="prev" ${currentArticlePage <= 1 ? "disabled" : ""}>
+        <i data-lucide="chevron-left"></i>上一页
+      </button>
+      <span>第 ${currentArticlePage} 页 / 共 ${totalPages} 页 · 显示 ${rangeStart}-${rangeEnd} 篇，共 ${visibleArticles.length} 篇</span>
+      <button type="button" data-article-page="next" ${currentArticlePage >= totalPages ? "disabled" : ""}>
+        下一页<i data-lucide="chevron-right"></i>
+      </button>
+    `;
+  };
 
   const render = () => {
     const visibleArticles =
       activeCategory === "全部"
         ? articles
         : articles.filter((article) => article.category === activeCategory);
-    list.innerHTML = visibleArticles.map(renderArticleCard).join("");
+    const totalPages = Math.max(1, Math.ceil(visibleArticles.length / ARTICLES_PER_PAGE));
+    currentArticlePage = Math.min(currentArticlePage, totalPages);
+    const start = (currentArticlePage - 1) * ARTICLES_PER_PAGE;
+    const pageArticles = visibleArticles.slice(start, start + ARTICLES_PER_PAGE);
+    list.innerHTML = renderArticleSections(pageArticles, activeCategory);
+    renderPagination(visibleArticles, totalPages);
     if (window.lucide) window.lucide.createIcons();
   };
 
@@ -1285,10 +1350,21 @@ async function initArticlesPage() {
       const button = event.target.closest("[data-article-category]");
       if (!button) return;
       activeCategory = button.dataset.articleCategory;
+      currentArticlePage = 1;
       filters.querySelectorAll("button").forEach((item) => {
         item.classList.toggle("is-active", item === button);
       });
       render();
+    });
+  }
+
+  if (pagination) {
+    pagination.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-article-page]");
+      if (!button || button.disabled) return;
+      currentArticlePage += button.dataset.articlePage === "next" ? 1 : -1;
+      render();
+      list.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 

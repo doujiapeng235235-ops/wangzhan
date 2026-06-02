@@ -10232,10 +10232,11 @@ body {
   border-left: 4px solid #f2b13d !important;
   border-radius: 16px !important;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(224, 240, 255, 0.9)),
-    radial-gradient(circle at 88% 10%, rgba(18, 108, 255, 0.18), transparent 34%) !important;
+    linear-gradient(145deg, #ffffff, #edf6ff),
+    radial-gradient(circle at 88% 10%, rgba(18, 108, 255, 0.12), transparent 34%) !important;
   box-shadow: 0 22px 48px rgba(0, 18, 42, 0.22) !important;
-  backdrop-filter: blur(14px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .database-stats div::after,
@@ -11957,14 +11958,11 @@ canvas {
 }
 
 .articles-hero-layout {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px) !important;
-  gap: clamp(32px, 6vw, 82px) !important;
-  align-items: center !important;
+  display: block !important;
 }
 
 .articles-hero h1 {
-  max-width: 760px !important;
+  max-width: 860px !important;
   margin: 20px 0 !important;
   color: #fff !important;
   font-size: clamp(38px, 4.6vw, 64px) !important;
@@ -11972,7 +11970,7 @@ canvas {
 }
 
 .articles-hero .lede {
-  max-width: 720px !important;
+  max-width: 820px !important;
   color: rgba(235, 246, 255, 0.86) !important;
   font-size: 17px !important;
   line-height: 1.9 !important;
@@ -12246,5 +12244,1122 @@ canvas {
 
   .article-faq {
     padding: 20px !important;
+  }
+}
+
+/* Editorial guide page refresh */
+.articles-hero {
+  background:
+    linear-gradient(90deg, rgba(3, 15, 33, 0.98), rgba(6, 38, 73, 0.9) 48%, rgba(8, 59, 112, 0.58)),
+    url("assets/occupation-job-search-hero-ai.png") center 48% / cover no-repeat !important;
+}
+
+.articles-hero-card {
+  border-radius: 8px !important;
+  background: rgba(3, 18, 39, 0.7) !important;
+}
+
+.articles-shell {
+  display: grid !important;
+  grid-template-columns: 250px minmax(0, 1fr) !important;
+  gap: 34px !important;
+  align-items: start !important;
+}
+
+.articles-shell > .section-head {
+  grid-column: 1 / -1 !important;
+  margin-bottom: 0 !important;
+}
+
+.article-category-filters {
+  position: sticky !important;
+  top: 96px !important;
+  display: grid !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 18px !important;
+  border: 1px solid #d7e8fb !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%) !important;
+  box-shadow: 0 18px 44px rgba(6, 31, 68, 0.04) !important;
+}
+
+.article-category-filters::before {
+  content: "文章栏目" !important;
+  display: block !important;
+  margin-bottom: 6px !important;
+  color: #061b3b !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+}
+
+.article-category-filters button {
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  padding: 0 12px !important;
+  border: 1px solid #d7e8fb !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+  color: #0d3462 !important;
+  background: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.article-category-filters button:hover {
+  border-color: #b9d7f5 !important;
+  background: #f2f8ff !important;
+}
+
+.article-category-filters button.is-active {
+  border-color: #0d5fc4 !important;
+  background: linear-gradient(180deg, #176ed8 0%, #0757bd 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 20px rgba(7, 83, 184, 0.18) !important;
+}
+
+/* Jobs database hero: use an Australia-specific skyline image */
+.database-hero {
+  background:
+    linear-gradient(90deg, rgba(2, 12, 30, 0.88) 0%, rgba(5, 34, 76, 0.76) 48%, rgba(16, 104, 198, 0.36) 100%),
+    url("assets/city-sydney-ai.png") center 46% / cover no-repeat !important;
+}
+
+.database-hero::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 34%),
+    radial-gradient(circle at 84% 24%, rgba(116, 190, 255, 0.2), transparent 30%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 120px) !important;
+}
+
+.database-hero .database-stats {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.database-hero .database-stats div {
+  background:
+    linear-gradient(145deg, #ffffff, #edf6ff),
+    radial-gradient(circle at 88% 10%, rgba(18, 108, 255, 0.12), transparent 34%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.article-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 26px !important;
+}
+
+.article-pagination {
+  grid-column: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  margin-top: 6px !important;
+  padding: 10px 0 2px !important;
+}
+
+.article-pagination[hidden] {
+  display: none !important;
+}
+
+.article-pagination button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 46px !important;
+  padding: 0 20px !important;
+  border: 1px solid #0b4fa7 !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  background: #083b82 !important;
+  font-weight: 900 !important;
+  box-shadow: 0 12px 26px rgba(6, 31, 68, 0.12) !important;
+}
+
+.article-pagination button:disabled {
+  border-color: #c8d8ea !important;
+  color: #66809d !important;
+  background: #e9f1fb !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}
+
+.article-pagination button .lucide {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+.article-pagination span {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 38px !important;
+  padding: 0 14px !important;
+  border: 1px solid #d7e8fb !important;
+  border-radius: 8px !important;
+  color: #335575 !important;
+  background: #fff !important;
+  font-size: 13px !important;
+  font-weight: 850 !important;
+  white-space: nowrap !important;
+}
+
+.article-column-section {
+  border: 1px solid #dbe8f6 !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  box-shadow: 0 22px 54px rgba(6, 31, 68, 0.06) !important;
+  overflow: hidden !important;
+}
+
+.article-column-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 18px 22px !important;
+  border-bottom: 1px solid #dbe8f6 !important;
+  background: linear-gradient(180deg, #fbfdff, #f3f8ff) !important;
+}
+
+.article-column-head span {
+  color: #061b3b !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+}
+
+.article-column-head small {
+  color: #667b93 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+.article-row-list {
+  display: grid !important;
+  gap: 0 !important;
+}
+
+.article-row-card,
+.article-card.article-row-card {
+  display: grid !important;
+  grid-template-columns: 232px minmax(0, 1fr) !important;
+  gap: 22px !important;
+  min-height: 176px !important;
+  padding: 22px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #dbe8f6 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+.article-row-card:last-child {
+  border-bottom: 0 !important;
+}
+
+.article-card-image {
+  display: block !important;
+  height: 132px !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+  background: #eaf2fb !important;
+}
+
+.article-card-image img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  transition: transform 0.25s ease !important;
+}
+
+.article-row-card:hover .article-card-image img {
+  transform: scale(1.035) !important;
+}
+
+.article-card-body {
+  display: grid !important;
+  align-content: start !important;
+  gap: 10px !important;
+}
+
+.article-card-meta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.article-card-meta span {
+  width: auto !important;
+}
+
+.article-card h3 {
+  font-size: clamp(20px, 2vw, 26px) !important;
+  line-height: 1.28 !important;
+}
+
+.article-card p {
+  max-width: 68ch !important;
+  color: #4e657f !important;
+}
+
+.article-card-link {
+  margin-top: 2px !important;
+}
+
+@media (max-width: 980px) {
+  .articles-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .article-category-filters {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+  }
+
+  .article-category-filters::before {
+    width: 100% !important;
+  }
+
+  .article-category-filters button {
+    width: auto !important;
+  }
+
+  .article-pagination {
+    grid-column: 1 !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .article-row-card,
+  .article-card.article-row-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .article-card-image {
+    height: 188px !important;
+  }
+
+  .article-pagination {
+    justify-content: stretch !important;
+    gap: 10px !important;
+  }
+
+  .article-pagination button,
+  .article-pagination span {
+    width: 100% !important;
+  }
+}
+
+/* Contact CTA refinement */
+.contact-band {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  padding: clamp(84px, 9vw, 126px) 0 !important;
+  border-top: 0 !important;
+  color: #fff !important;
+  background:
+    linear-gradient(90deg, rgba(4, 17, 37, 0.98) 0%, rgba(6, 35, 70, 0.94) 56%, rgba(8, 67, 125, 0.78) 100%),
+    url("assets/hero-sydney-night.png") center 72% / cover no-repeat !important;
+}
+
+.contact-band::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 42%),
+    radial-gradient(circle at 76% 42%, rgba(49, 128, 226, 0.2), transparent 32%) !important;
+  pointer-events: none !important;
+}
+
+.contact-band .contact-layout {
+  width: min(1180px, calc(100% - 72px)) !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 340px !important;
+  gap: clamp(42px, 8vw, 110px) !important;
+  align-items: center !important;
+}
+
+.contact-band .eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 0 26px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #f6b741 !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}
+
+.contact-band .eyebrow::before {
+  content: "" !important;
+  width: 4px !important;
+  height: 28px !important;
+  border-radius: 2px !important;
+  background: #f6b741 !important;
+}
+
+.contact-band h2 {
+  max-width: 720px !important;
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: clamp(38px, 5vw, 62px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0 !important;
+}
+
+.contact-band p {
+  max-width: 700px !important;
+  margin: 24px 0 0 !important;
+  color: rgba(232, 243, 255, 0.88) !important;
+  font-size: 18px !important;
+  line-height: 1.9 !important;
+  font-weight: 700 !important;
+}
+
+.contact-points {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin-top: 30px !important;
+}
+
+.contact-points span {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 38px !important;
+  padding: 0 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 999px !important;
+  color: #eef7ff !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  font-size: 14px !important;
+  font-weight: 850 !important;
+}
+
+.contact-band .wechat-card {
+  position: relative !important;
+  display: grid !important;
+  justify-items: center !important;
+  gap: 16px !important;
+  min-height: 0 !important;
+  padding: 30px 28px !important;
+  border: 1px solid rgba(214, 232, 255, 0.2) !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+    rgba(5, 24, 52, 0.72) !important;
+  box-shadow: 0 30px 82px rgba(0, 8, 26, 0.28) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.contact-band .wechat-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 7px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  pointer-events: none !important;
+}
+
+.contact-band .wechat-card strong {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+}
+
+.contact-band .wechat-card b {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 38px !important;
+  padding: 0 18px !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  background: #0b376f !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+}
+
+.contact-band .wechat-qr {
+  width: 156px !important;
+  height: 156px !important;
+  display: block !important;
+  padding: 12px !important;
+  border: 1px solid #d9ebff !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  object-fit: contain !important;
+  box-shadow: 0 18px 42px rgba(0, 10, 30, 0.22) !important;
+}
+
+.contact-band .wechat-card small {
+  max-width: 250px !important;
+  color: rgba(235, 245, 255, 0.82) !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  text-align: center !important;
+  font-weight: 750 !important;
+}
+
+@media (max-width: 820px) {
+  .contact-band .contact-layout {
+    width: min(100% - 32px, 100%) !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-band .wechat-card {
+    justify-self: start !important;
+    width: min(100%, 340px) !important;
+  }
+}
+
+/* Contact CTA second pass: compact editorial conversion panel */
+.contact-band {
+  padding: clamp(54px, 6vw, 78px) 0 !important;
+  background:
+    linear-gradient(90deg, rgba(4, 17, 37, 0.98) 0%, rgba(5, 30, 61, 0.96) 58%, rgba(6, 52, 96, 0.88) 100%),
+    url("assets/hero-sydney-night.png") center 74% / cover no-repeat !important;
+}
+
+.contact-band .contact-layout {
+  width: min(1120px, calc(100% - 72px)) !important;
+  grid-template-columns: minmax(0, 1fr) 312px !important;
+  gap: clamp(28px, 5vw, 72px) !important;
+  padding: clamp(32px, 5vw, 52px) !important;
+  border: 1px solid rgba(218, 235, 255, 0.16) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(3, 18, 40, 0.58) !important;
+  box-shadow: 0 28px 90px rgba(0, 8, 28, 0.28) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.contact-band .contact-layout > div:first-child {
+  max-width: 660px !important;
+}
+
+.contact-band .eyebrow {
+  margin-bottom: 18px !important;
+  font-size: 13px !important;
+}
+
+.contact-band h2 {
+  max-width: 620px !important;
+  font-size: clamp(34px, 4vw, 52px) !important;
+}
+
+.contact-band p {
+  max-width: 620px !important;
+  margin-top: 18px !important;
+  font-size: 16px !important;
+  line-height: 1.85 !important;
+}
+
+.contact-points {
+  margin-top: 24px !important;
+}
+
+.contact-points span {
+  min-height: 34px !important;
+  padding-inline: 14px !important;
+  border-color: rgba(246, 183, 65, 0.28) !important;
+  color: #fff7df !important;
+  background: rgba(246, 183, 65, 0.1) !important;
+}
+
+.contact-band .wechat-card {
+  justify-self: end !important;
+  width: 100% !important;
+  gap: 12px !important;
+  padding: 22px !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.055)),
+    rgba(9, 42, 80, 0.78) !important;
+  box-shadow: 0 22px 58px rgba(0, 6, 20, 0.26) !important;
+}
+
+.contact-band .wechat-card strong {
+  font-size: 20px !important;
+}
+
+.contact-band .wechat-card b {
+  min-height: 34px !important;
+  padding-inline: 16px !important;
+  background: #073062 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+.contact-band .wechat-qr {
+  width: 178px !important;
+  height: 178px !important;
+  padding: 10px !important;
+}
+
+.contact-band .wechat-card small {
+  max-width: 232px !important;
+  font-size: 12px !important;
+}
+
+@media (max-width: 820px) {
+  .contact-band .contact-layout {
+    width: min(100% - 32px, 100%) !important;
+    grid-template-columns: 1fr !important;
+    padding: 28px !important;
+  }
+
+  .contact-band .wechat-card {
+    justify-self: stretch !important;
+  }
+}
+
+/* Contact CTA final polish */
+.contact-band {
+  padding: clamp(50px, 6vw, 76px) 0 !important;
+  background:
+    linear-gradient(90deg, rgba(4, 17, 37, 0.98) 0%, rgba(5, 31, 61, 0.96) 56%, rgba(6, 54, 98, 0.88) 100%),
+    url("assets/hero-sydney-night.png") center 72% / cover no-repeat !important;
+}
+
+.contact-band .contact-layout {
+  width: min(1120px, calc(100% - 72px)) !important;
+  grid-template-columns: minmax(0, 1fr) 310px !important;
+  gap: clamp(34px, 6vw, 76px) !important;
+  align-items: stretch !important;
+  padding: clamp(34px, 5vw, 52px) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025)),
+    rgba(3, 18, 40, 0.62) !important;
+}
+
+.contact-band .contact-layout > div:first-child {
+  display: grid !important;
+  align-content: center !important;
+  max-width: 700px !important;
+}
+
+.contact-band h2 {
+  max-width: 700px !important;
+  font-size: clamp(36px, 4vw, 52px) !important;
+}
+
+.contact-band p {
+  max-width: 660px !important;
+}
+
+.contact-points {
+  margin-top: 22px !important;
+}
+
+.contact-points span {
+  border-color: rgba(212, 230, 250, 0.24) !important;
+  color: #edf7ff !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.contact-steps {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin-top: 24px !important;
+}
+
+.contact-steps span {
+  display: grid !important;
+  gap: 8px !important;
+  min-height: 88px !important;
+  padding: 14px 16px !important;
+  border: 1px solid rgba(218, 235, 255, 0.16) !important;
+  border-radius: 8px !important;
+  background: rgba(5, 32, 64, 0.52) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.contact-steps b {
+  color: #f6b741 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+}
+
+.contact-steps strong {
+  color: #fff !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+  font-weight: 900 !important;
+}
+
+.contact-band .wechat-card {
+  align-self: stretch !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  padding: 24px !important;
+}
+
+.wechat-card-head {
+  display: grid !important;
+  justify-items: center !important;
+  gap: 10px !important;
+  text-align: center !important;
+}
+
+.contact-band .wechat-card-head strong {
+  font-size: 20px !important;
+}
+
+.wechat-card-head span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 34px !important;
+  padding: 0 18px !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  background: #073062 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.contact-band .wechat-card > b {
+  display: none !important;
+}
+
+.contact-band .wechat-qr {
+  width: 168px !important;
+  height: 168px !important;
+}
+
+.contact-band .wechat-card small {
+  max-width: 238px !important;
+}
+
+@media (max-width: 900px) {
+  .contact-band .contact-layout {
+    width: min(100% - 32px, 100%) !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-steps {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-band .wechat-card {
+    justify-self: stretch !important;
+  }
+}
+
+/* Contact CTA matched to approved reference */
+.contact-band {
+  padding: 10px 0 0 !important;
+  background:
+    linear-gradient(90deg, rgba(3, 18, 40, 0.98), rgba(6, 45, 84, 0.96)),
+    url("assets/hero-sydney-night.png") center 72% / cover no-repeat !important;
+}
+
+.contact-band .contact-layout {
+  width: min(1120px, calc(100% - 16px)) !important;
+  min-height: 512px !important;
+  grid-template-columns: minmax(0, 1fr) 308px !important;
+  gap: 76px !important;
+  align-items: center !important;
+  padding: 50px 52px !important;
+  border: 1px solid rgba(203, 225, 250, 0.22) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015)),
+    rgba(6, 24, 49, 0.76) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+.contact-band .contact-layout > div:first-child {
+  max-width: 640px !important;
+}
+
+.contact-band .eyebrow {
+  margin-bottom: 26px !important;
+  color: #f6b741 !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}
+
+.contact-band .eyebrow::before {
+  display: none !important;
+}
+
+.contact-band h2 {
+  max-width: 560px !important;
+  color: #fff !important;
+  font-size: 52px !important;
+  line-height: 1.08 !important;
+  font-weight: 950 !important;
+}
+
+.contact-band p {
+  max-width: 650px !important;
+  margin-top: 24px !important;
+  color: rgba(236, 246, 255, 0.88) !important;
+  font-size: 16px !important;
+  line-height: 1.85 !important;
+  font-weight: 800 !important;
+}
+
+.contact-points {
+  gap: 12px !important;
+  margin-top: 28px !important;
+}
+
+.contact-points span {
+  min-height: 34px !important;
+  padding: 0 16px !important;
+  border: 1px solid rgba(230, 242, 255, 0.28) !important;
+  border-radius: 999px !important;
+  color: #f3f8ff !important;
+  background: rgba(255, 255, 255, 0.065) !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+}
+
+.contact-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin-top: 24px !important;
+}
+
+.contact-steps span {
+  min-height: 88px !important;
+  padding: 16px !important;
+  border: 1px solid rgba(205, 226, 250, 0.2) !important;
+  border-radius: 8px !important;
+  background: rgba(4, 22, 48, 0.52) !important;
+}
+
+.contact-steps b {
+  color: #f6b741 !important;
+}
+
+.contact-steps strong {
+  align-self: end !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+.contact-band .wechat-card {
+  width: 308px !important;
+  min-height: 406px !important;
+  justify-self: end !important;
+  align-self: center !important;
+  gap: 22px !important;
+  padding: 30px 24px !important;
+  border: 1px solid rgba(220, 237, 255, 0.24) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.045)),
+    rgba(24, 67, 108, 0.72) !important;
+  box-shadow: 0 22px 70px rgba(0, 8, 26, 0.32) !important;
+}
+
+.contact-band .wechat-card::before {
+  inset: 2px !important;
+  border-radius: 7px !important;
+}
+
+.contact-band .wechat-card-head {
+  gap: 10px !important;
+}
+
+.contact-band .wechat-card-head strong {
+  color: #fff !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+  font-weight: 950 !important;
+}
+
+.contact-band .wechat-card-head span {
+  min-height: 34px !important;
+  padding: 0 18px !important;
+  border-radius: 8px !important;
+  background: #0b3d79 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 950 !important;
+}
+
+.contact-band .wechat-qr {
+  width: 168px !important;
+  height: 168px !important;
+  padding: 12px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.contact-band .wechat-card small {
+  max-width: 238px !important;
+  color: rgba(237, 247, 255, 0.82) !important;
+  font-size: 12px !important;
+  line-height: 1.65 !important;
+  font-weight: 800 !important;
+}
+
+@media (max-width: 980px) {
+  .contact-band .contact-layout {
+    width: min(100% - 28px, 100%) !important;
+    min-height: auto !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding: 34px 28px !important;
+  }
+
+  .contact-band h2 {
+    font-size: clamp(34px, 9vw, 48px) !important;
+  }
+
+  .contact-steps {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-band .wechat-card {
+    width: min(100%, 320px) !important;
+    justify-self: start !important;
+  }
+}
+
+/* Mobile rhythm pass: keep the homepage usable before the first scroll */
+@media (max-width: 760px) {
+  .topbar {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 12px 14px 10px !important;
+  }
+
+  .brand {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .brand-mark {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+  }
+
+  .brand strong {
+    font-size: 15px !important;
+    line-height: 1.15 !important;
+  }
+
+  .brand small {
+    max-width: 260px !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+  }
+
+  .topbar .nav {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 8px !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+    padding: 0 0 2px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .topbar .nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .topbar .nav a,
+  .topbar .nav .nav-login,
+  .topbar .nav .nav-register,
+  .topbar .language-switcher {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: max-content !important;
+    min-height: 36px !important;
+    padding: 0 12px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .topbar .nav a .lucide,
+  .topbar .nav a i[data-lucide] {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .topbar .language-switcher select {
+    font-size: 12px !important;
+  }
+
+  .topbar .nav a[href="index.html"],
+  .topbar .nav a[href="#top"] {
+    order: 0 !important;
+  }
+
+  .topbar .nav a[href="jobs.html"] {
+    order: 1 !important;
+  }
+
+  .topbar .nav a[href="occupations.html"] {
+    order: 2 !important;
+  }
+
+  .topbar .nav a[href="csol.html"] {
+    order: 3 !important;
+  }
+
+  .topbar .nav a[href="articles.html"] {
+    order: 4 !important;
+  }
+
+  .topbar .nav a[href="#self-test"] {
+    order: 5 !important;
+  }
+
+  .topbar .nav a[href="#contact"],
+  .topbar .nav a[href="index.html#contact"] {
+    order: 6 !important;
+  }
+
+  .topbar .nav .nav-login {
+    order: 7 !important;
+  }
+
+  .topbar .nav .nav-register {
+    order: 8 !important;
+  }
+
+  .topbar .language-switcher {
+    order: 9 !important;
+  }
+
+  .hero {
+    min-height: 0 !important;
+    padding: 38px 0 34px !important;
+  }
+
+  .hero-layout {
+    width: min(100% - 32px, 100%) !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero-copy {
+    width: 100% !important;
+    max-width: none !important;
+    gap: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 24px !important;
+    font-size: 13px !important;
+  }
+
+  .hero h1 {
+    max-width: 9em !important;
+    font-size: clamp(40px, 12vw, 54px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .hero .lede {
+    max-width: 34em !important;
+    margin-top: 24px !important;
+    font-size: 15px !important;
+    line-height: 1.85 !important;
+  }
+
+  .hero-locations {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 28px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .hero-locations::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .hero-locations a {
+    flex: 0 0 auto !important;
+    min-height: 38px !important;
+    padding: 0 16px !important;
+    font-size: 13px !important;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    width: 100% !important;
+    margin-top: 26px !important;
+  }
+
+  .hero-metrics span {
+    min-height: 86px !important;
+    padding: 14px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .hero-metrics strong {
+    font-size: clamp(28px, 9vw, 38px) !important;
+  }
+
+  .hero-visual {
+    display: none !important;
+  }
+
+  .hero-search-section {
+    padding: 18px 0 30px !important;
+  }
+
+  .hero-search-section .section-inner {
+    width: min(100% - 32px, 100%) !important;
+  }
+
+  .hero-search-section .search-panel {
+    padding: 18px !important;
+  }
+
+  .hero-search-section .hero-filter-grid {
+    gap: 12px !important;
+  }
+
+  .hero-search-section .quick-search {
+    gap: 8px !important;
+    margin-top: 14px !important;
   }
 }

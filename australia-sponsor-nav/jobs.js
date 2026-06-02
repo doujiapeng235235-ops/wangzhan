@@ -150,7 +150,8 @@ function renderJobs() {
   const rangeEnd = Math.min(start + pageSize, filteredJobs.length);
 
   byId("jobResultCount").textContent = `${filteredJobs.length} 个岗位`;
-  byId("jobPageInfo").textContent = `${rangeStart}-${rangeEnd} / ${filteredJobs.length} · 第 ${currentPage} / ${pages} 页`;
+  byId("jobPageInfo").textContent =
+    `第 ${currentPage} 页 / 共 ${pages} 页 · 显示 ${rangeStart}-${rangeEnd} 条，共 ${filteredJobs.length} 条`;
   byId("prevJobPage").disabled = currentPage <= 1;
   byId("nextJobPage").disabled = currentPage >= pages;
 
